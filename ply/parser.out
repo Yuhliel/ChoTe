@@ -1,0 +1,4217 @@
+Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> BEGIN ID OPEN_BRACE full_module masFullModules MAIN full_block CLOSE_BRACE END
+Rule 2     asssign -> ID asssign1 SEMI_COLON
+Rule 3     asssign1 -> OPEN_BRACKET asssign2
+Rule 4     asssign1 -> ASSIGN expression
+Rule 5     asssign2 -> expression CLOSE_BRACKET ASSIGN expression
+Rule 6     asssign2 -> CLOSE_BRACKET ASSIGN OPEN_BRACE adata CLOSE_BRACE
+Rule 7     adata -> expression adata
+Rule 8     adata -> COMMA expression adata
+Rule 9     adata -> <empty>
+Rule 10    block -> OPEN_BRACE module masModule CLOSE_BRACE
+Rule 11    masModule -> module masModule
+Rule 12    masModule -> <empty>
+Rule 13    condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+Rule 14    conditionaux -> ELSE block
+Rule 15    conditionaux -> <empty>
+Rule 16    readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+Rule 17    printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+Rule 18    module -> statement
+Rule 19    module -> variable
+Rule 20    module -> f_call
+Rule 21    exp_expression -> expression eee
+Rule 22    eee -> OR ee eee
+Rule 23    eee -> AND ee eee
+Rule 24    eee -> <empty>
+Rule 25    ee -> expression
+Rule 26    ee -> <empty>
+Rule 27    expression -> expression1 exp expression2
+Rule 28    expression1 -> NEGATION
+Rule 29    expression1 -> <empty>
+Rule 30    expression2 -> GREATER_THAN expression1 exp
+Rule 31    expression2 -> LESS_THAN expression1 exp
+Rule 32    expression2 -> DIFFERENT expression1 exp
+Rule 33    expression2 -> GREAT_EQUAL expression1 exp
+Rule 34    expression2 -> LESS_EQUAL expression1 exp
+Rule 35    expression2 -> EQUALS expression1 exp
+Rule 36    expression2 -> <empty>
+Rule 37    full_block -> OPEN_BRACE full_module masFullBlock CLOSE_BRACE
+Rule 38    masFullBlock -> full_module masFullBlock
+Rule 39    masFullBlock -> <empty>
+Rule 40    full_module -> statement
+Rule 41    full_module -> variable
+Rule 42    full_module -> functionn
+Rule 43    full_module -> f_call
+Rule 44    masFullModules -> full_module masFullModules
+Rule 45    masFullModules -> <empty>
+Rule 46    statement -> printt
+Rule 47    statement -> readd
+Rule 48    statement -> condition
+Rule 49    statement -> asssign
+Rule 50    statement -> loop
+Rule 51    type -> VOID
+Rule 52    type -> BOOLEAN
+Rule 53    type -> INT
+Rule 54    type -> DOUBLE
+Rule 55    type -> STRING
+Rule 56    variable -> type var1 SEMI_COLON
+Rule 57    var1 -> OPEN_BRACKET expression CLOSE_BRACKET var2
+Rule 58    var1 -> var2
+Rule 59    var2 -> ID var3
+Rule 60    var3 -> COMMA var2
+Rule 61    var3 -> <empty>
+Rule 62    forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+Rule 63    loop -> forr
+Rule 64    loop -> whilee
+Rule 65    exp -> term exp1
+Rule 66    exp1 -> PLUS term exp1
+Rule 67    exp1 -> MINUS term exp1
+Rule 68    exp1 -> <empty>
+Rule 69    term -> factor term1
+Rule 70    term1 -> TIMES factor term1
+Rule 71    term1 -> DIVIDE factor term1
+Rule 72    term1 -> <empty>
+Rule 73    factor -> OPEN_PAREN expression CLOSE_PAREN
+Rule 74    factor -> varconst
+Rule 75    whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+Rule 76    f_module -> statement
+Rule 77    f_module -> variable
+Rule 78    f_module -> returnn
+Rule 79    f_module -> f_call
+Rule 80    f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE
+Rule 81    masFModule -> f_module masFModule
+Rule 82    masFModule -> <empty>
+Rule 83    functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block
+Rule 84    func1 -> COMMA params func1
+Rule 85    func1 -> <empty>
+Rule 86    params -> type para1 ID
+Rule 87    params -> <empty>
+Rule 88    para1 -> OPEN_BRACKET CLOSE_BRACKET
+Rule 89    para1 -> <empty>
+Rule 90    varconst -> const
+Rule 91    varconst -> constID
+Rule 92    constID -> ID masconstID
+Rule 93    masconstID -> OPEN_BRACKET expression CLOSE_BRACKET
+Rule 94    masconstID -> <empty>
+Rule 95    const -> CINT
+Rule 96    const -> CDOUBLE
+Rule 97    const -> constbool
+Rule 98    const -> CSTRING
+Rule 99    constbool -> TRUE
+Rule 100   constbool -> FALSE
+Rule 101   returnn -> RETURN exp_expression SEMI_COLON
+Rule 102   f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+
+Terminals, with rules where they appear
+
+AND                  : 23
+ASSIGN               : 4 5 6 62
+BEGIN                : 1
+BOOLEAN              : 52
+CDOUBLE              : 96
+CINT                 : 95
+CLOSE_BRACE          : 1 6 10 37 80
+CLOSE_BRACKET        : 5 6 57 88 93
+CLOSE_PAREN          : 13 16 17 62 73 75 83 102
+COMMA                : 8 16 60 84
+CSTRING              : 98
+DIFFERENT            : 32
+DIVIDE               : 71
+DOUBLE               : 54
+ELSE                 : 14
+END                  : 1
+EQUALS               : 35
+FALSE                : 100
+FOR                  : 62
+FUNCTION             : 83
+GREATER_THAN         : 30
+GREAT_EQUAL          : 33
+ID                   : 1 2 16 59 62 62 83 86 92 102
+IF                   : 13
+INT                  : 53
+LESS_EQUAL           : 34
+LESS_THAN            : 31
+MAIN                 : 1
+MINUS                : 67
+NEGATION             : 28
+OPEN_BRACE           : 1 6 10 37 80
+OPEN_BRACKET         : 3 57 88 93
+OPEN_PAREN           : 13 16 17 62 73 75 83 102
+OR                   : 22
+PLUS                 : 66
+PRINT                : 17
+READ                 : 16
+RETURN               : 101
+SEMI_COLON           : 2 16 17 56 62 62 101 102
+STRING               : 55
+TIMES                : 70
+TRUE                 : 99
+VOID                 : 51
+WHILE                : 75
+error                : 
+
+Nonterminals, with rules where they appear
+
+adata                : 6 7 8 102
+asssign              : 49
+asssign1             : 2
+asssign2             : 3
+block                : 13 14 62 75
+condition            : 48
+conditionaux         : 13
+const                : 62 90
+constID              : 91
+constbool            : 97
+ee                   : 22 23
+eee                  : 21 22 23
+exp                  : 27 30 31 32 33 34 35
+exp1                 : 65 66 67
+exp_expression       : 13 17 75 101
+expression           : 4 5 5 7 8 16 21 25 57 62 62 73 93
+expression1          : 27 30 31 32 33 34 35
+expression2          : 27
+f_block              : 83
+f_call               : 20 43 79
+f_module             : 80 81
+factor               : 69 70 71
+forr                 : 63
+full_block           : 1
+full_module          : 1 37 38 44
+func1                : 83 84
+functionn            : 42
+loop                 : 50
+masFModule           : 80 81
+masFullBlock         : 37 38
+masFullModules       : 1 44
+masModule            : 10 11
+masconstID           : 92
+module               : 10 11
+para1                : 86
+params               : 83 84
+printt               : 46
+program              : 0
+readd                : 47
+returnn              : 78
+statement            : 18 40 76
+term                 : 65 66 67
+term1                : 69 70 71
+type                 : 56 83 86
+var1                 : 56
+var2                 : 57 58 60
+var3                 : 59
+varconst             : 74
+variable             : 19 41 77
+whilee               : 64
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . BEGIN ID OPEN_BRACE full_module masFullModules MAIN full_block CLOSE_BRACE END
+
+    BEGIN           shift and go to state 1
+
+    program                        shift and go to state 2
+
+state 1
+
+    (1) program -> BEGIN . ID OPEN_BRACE full_module masFullModules MAIN full_block CLOSE_BRACE END
+
+    ID              shift and go to state 3
+
+
+state 2
+
+    (0) S' -> program .
+
+
+
+state 3
+
+    (1) program -> BEGIN ID . OPEN_BRACE full_module masFullModules MAIN full_block CLOSE_BRACE END
+
+    OPEN_BRACE      shift and go to state 4
+
+
+state 4
+
+    (1) program -> BEGIN ID OPEN_BRACE . full_module masFullModules MAIN full_block CLOSE_BRACE END
+    (40) full_module -> . statement
+    (41) full_module -> . variable
+    (42) full_module -> . functionn
+    (43) full_module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (83) functionn -> . FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    FUNCTION        shift and go to state 16
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    readd                          shift and go to state 5
+    full_module                    shift and go to state 12
+    statement                      shift and go to state 13
+    type                           shift and go to state 14
+    functionn                      shift and go to state 15
+    whilee                         shift and go to state 18
+    f_call                         shift and go to state 19
+    variable                       shift and go to state 20
+    forr                           shift and go to state 21
+    condition                      shift and go to state 23
+    loop                           shift and go to state 28
+    asssign                        shift and go to state 29
+
+state 5
+
+    (47) statement -> readd .
+
+    ID              reduce using rule 47 (statement -> readd .)
+    PRINT           reduce using rule 47 (statement -> readd .)
+    READ            reduce using rule 47 (statement -> readd .)
+    IF              reduce using rule 47 (statement -> readd .)
+    VOID            reduce using rule 47 (statement -> readd .)
+    BOOLEAN         reduce using rule 47 (statement -> readd .)
+    INT             reduce using rule 47 (statement -> readd .)
+    DOUBLE          reduce using rule 47 (statement -> readd .)
+    STRING          reduce using rule 47 (statement -> readd .)
+    FOR             reduce using rule 47 (statement -> readd .)
+    WHILE           reduce using rule 47 (statement -> readd .)
+    CLOSE_BRACE     reduce using rule 47 (statement -> readd .)
+    RETURN          reduce using rule 47 (statement -> readd .)
+    FUNCTION        reduce using rule 47 (statement -> readd .)
+    MAIN            reduce using rule 47 (statement -> readd .)
+
+
+state 6
+
+    (16) readd -> READ . OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+
+    OPEN_PAREN      shift and go to state 30
+
+
+state 7
+
+    (51) type -> VOID .
+
+    OPEN_BRACKET    reduce using rule 51 (type -> VOID .)
+    ID              reduce using rule 51 (type -> VOID .)
+
+
+state 8
+
+    (17) printt -> PRINT . OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+
+    OPEN_PAREN      shift and go to state 31
+
+
+state 9
+
+    (75) whilee -> WHILE . OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    OPEN_PAREN      shift and go to state 32
+
+
+state 10
+
+    (46) statement -> printt .
+
+    ID              reduce using rule 46 (statement -> printt .)
+    PRINT           reduce using rule 46 (statement -> printt .)
+    READ            reduce using rule 46 (statement -> printt .)
+    IF              reduce using rule 46 (statement -> printt .)
+    VOID            reduce using rule 46 (statement -> printt .)
+    BOOLEAN         reduce using rule 46 (statement -> printt .)
+    INT             reduce using rule 46 (statement -> printt .)
+    DOUBLE          reduce using rule 46 (statement -> printt .)
+    STRING          reduce using rule 46 (statement -> printt .)
+    FOR             reduce using rule 46 (statement -> printt .)
+    WHILE           reduce using rule 46 (statement -> printt .)
+    CLOSE_BRACE     reduce using rule 46 (statement -> printt .)
+    RETURN          reduce using rule 46 (statement -> printt .)
+    FUNCTION        reduce using rule 46 (statement -> printt .)
+    MAIN            reduce using rule 46 (statement -> printt .)
+
+
+state 11
+
+    (62) forr -> FOR . OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+
+    OPEN_PAREN      shift and go to state 33
+
+
+state 12
+
+    (1) program -> BEGIN ID OPEN_BRACE full_module . masFullModules MAIN full_block CLOSE_BRACE END
+    (44) masFullModules -> . full_module masFullModules
+    (45) masFullModules -> .
+    (40) full_module -> . statement
+    (41) full_module -> . variable
+    (42) full_module -> . functionn
+    (43) full_module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (83) functionn -> . FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    MAIN            reduce using rule 45 (masFullModules -> .)
+    FUNCTION        shift and go to state 16
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    readd                          shift and go to state 5
+    full_module                    shift and go to state 34
+    statement                      shift and go to state 13
+    masFullModules                 shift and go to state 35
+    type                           shift and go to state 14
+    functionn                      shift and go to state 15
+    whilee                         shift and go to state 18
+    f_call                         shift and go to state 19
+    variable                       shift and go to state 20
+    forr                           shift and go to state 21
+    condition                      shift and go to state 23
+    loop                           shift and go to state 28
+    asssign                        shift and go to state 29
+
+state 13
+
+    (40) full_module -> statement .
+
+    FUNCTION        reduce using rule 40 (full_module -> statement .)
+    ID              reduce using rule 40 (full_module -> statement .)
+    PRINT           reduce using rule 40 (full_module -> statement .)
+    READ            reduce using rule 40 (full_module -> statement .)
+    IF              reduce using rule 40 (full_module -> statement .)
+    VOID            reduce using rule 40 (full_module -> statement .)
+    BOOLEAN         reduce using rule 40 (full_module -> statement .)
+    INT             reduce using rule 40 (full_module -> statement .)
+    DOUBLE          reduce using rule 40 (full_module -> statement .)
+    STRING          reduce using rule 40 (full_module -> statement .)
+    FOR             reduce using rule 40 (full_module -> statement .)
+    WHILE           reduce using rule 40 (full_module -> statement .)
+    MAIN            reduce using rule 40 (full_module -> statement .)
+    CLOSE_BRACE     reduce using rule 40 (full_module -> statement .)
+
+
+state 14
+
+    (56) variable -> type . var1 SEMI_COLON
+    (57) var1 -> . OPEN_BRACKET expression CLOSE_BRACKET var2
+    (58) var1 -> . var2
+    (59) var2 -> . ID var3
+
+    OPEN_BRACKET    shift and go to state 38
+    ID              shift and go to state 39
+
+    var1                           shift and go to state 36
+    var2                           shift and go to state 37
+
+state 15
+
+    (42) full_module -> functionn .
+
+    FUNCTION        reduce using rule 42 (full_module -> functionn .)
+    ID              reduce using rule 42 (full_module -> functionn .)
+    PRINT           reduce using rule 42 (full_module -> functionn .)
+    READ            reduce using rule 42 (full_module -> functionn .)
+    IF              reduce using rule 42 (full_module -> functionn .)
+    VOID            reduce using rule 42 (full_module -> functionn .)
+    BOOLEAN         reduce using rule 42 (full_module -> functionn .)
+    INT             reduce using rule 42 (full_module -> functionn .)
+    DOUBLE          reduce using rule 42 (full_module -> functionn .)
+    STRING          reduce using rule 42 (full_module -> functionn .)
+    FOR             reduce using rule 42 (full_module -> functionn .)
+    WHILE           reduce using rule 42 (full_module -> functionn .)
+    MAIN            reduce using rule 42 (full_module -> functionn .)
+    CLOSE_BRACE     reduce using rule 42 (full_module -> functionn .)
+
+
+state 16
+
+    (83) functionn -> FUNCTION . type ID OPEN_PAREN params func1 CLOSE_PAREN f_block
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+
+    type                           shift and go to state 40
+
+state 17
+
+    (55) type -> STRING .
+
+    OPEN_BRACKET    reduce using rule 55 (type -> STRING .)
+    ID              reduce using rule 55 (type -> STRING .)
+
+
+state 18
+
+    (64) loop -> whilee .
+
+    RETURN          reduce using rule 64 (loop -> whilee .)
+    ID              reduce using rule 64 (loop -> whilee .)
+    PRINT           reduce using rule 64 (loop -> whilee .)
+    READ            reduce using rule 64 (loop -> whilee .)
+    IF              reduce using rule 64 (loop -> whilee .)
+    VOID            reduce using rule 64 (loop -> whilee .)
+    BOOLEAN         reduce using rule 64 (loop -> whilee .)
+    INT             reduce using rule 64 (loop -> whilee .)
+    DOUBLE          reduce using rule 64 (loop -> whilee .)
+    STRING          reduce using rule 64 (loop -> whilee .)
+    FOR             reduce using rule 64 (loop -> whilee .)
+    WHILE           reduce using rule 64 (loop -> whilee .)
+    CLOSE_BRACE     reduce using rule 64 (loop -> whilee .)
+    FUNCTION        reduce using rule 64 (loop -> whilee .)
+    MAIN            reduce using rule 64 (loop -> whilee .)
+
+
+state 19
+
+    (43) full_module -> f_call .
+
+    FUNCTION        reduce using rule 43 (full_module -> f_call .)
+    ID              reduce using rule 43 (full_module -> f_call .)
+    PRINT           reduce using rule 43 (full_module -> f_call .)
+    READ            reduce using rule 43 (full_module -> f_call .)
+    IF              reduce using rule 43 (full_module -> f_call .)
+    VOID            reduce using rule 43 (full_module -> f_call .)
+    BOOLEAN         reduce using rule 43 (full_module -> f_call .)
+    INT             reduce using rule 43 (full_module -> f_call .)
+    DOUBLE          reduce using rule 43 (full_module -> f_call .)
+    STRING          reduce using rule 43 (full_module -> f_call .)
+    FOR             reduce using rule 43 (full_module -> f_call .)
+    WHILE           reduce using rule 43 (full_module -> f_call .)
+    MAIN            reduce using rule 43 (full_module -> f_call .)
+    CLOSE_BRACE     reduce using rule 43 (full_module -> f_call .)
+
+
+state 20
+
+    (41) full_module -> variable .
+
+    FUNCTION        reduce using rule 41 (full_module -> variable .)
+    ID              reduce using rule 41 (full_module -> variable .)
+    PRINT           reduce using rule 41 (full_module -> variable .)
+    READ            reduce using rule 41 (full_module -> variable .)
+    IF              reduce using rule 41 (full_module -> variable .)
+    VOID            reduce using rule 41 (full_module -> variable .)
+    BOOLEAN         reduce using rule 41 (full_module -> variable .)
+    INT             reduce using rule 41 (full_module -> variable .)
+    DOUBLE          reduce using rule 41 (full_module -> variable .)
+    STRING          reduce using rule 41 (full_module -> variable .)
+    FOR             reduce using rule 41 (full_module -> variable .)
+    WHILE           reduce using rule 41 (full_module -> variable .)
+    MAIN            reduce using rule 41 (full_module -> variable .)
+    CLOSE_BRACE     reduce using rule 41 (full_module -> variable .)
+
+
+state 21
+
+    (63) loop -> forr .
+
+    RETURN          reduce using rule 63 (loop -> forr .)
+    ID              reduce using rule 63 (loop -> forr .)
+    PRINT           reduce using rule 63 (loop -> forr .)
+    READ            reduce using rule 63 (loop -> forr .)
+    IF              reduce using rule 63 (loop -> forr .)
+    VOID            reduce using rule 63 (loop -> forr .)
+    BOOLEAN         reduce using rule 63 (loop -> forr .)
+    INT             reduce using rule 63 (loop -> forr .)
+    DOUBLE          reduce using rule 63 (loop -> forr .)
+    STRING          reduce using rule 63 (loop -> forr .)
+    FOR             reduce using rule 63 (loop -> forr .)
+    WHILE           reduce using rule 63 (loop -> forr .)
+    CLOSE_BRACE     reduce using rule 63 (loop -> forr .)
+    FUNCTION        reduce using rule 63 (loop -> forr .)
+    MAIN            reduce using rule 63 (loop -> forr .)
+
+
+state 22
+
+    (102) f_call -> ID . OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (2) asssign -> ID . asssign1 SEMI_COLON
+    (3) asssign1 -> . OPEN_BRACKET asssign2
+    (4) asssign1 -> . ASSIGN expression
+
+    OPEN_PAREN      shift and go to state 44
+    OPEN_BRACKET    shift and go to state 41
+    ASSIGN          shift and go to state 42
+
+    asssign1                       shift and go to state 43
+
+state 23
+
+    (48) statement -> condition .
+
+    ID              reduce using rule 48 (statement -> condition .)
+    PRINT           reduce using rule 48 (statement -> condition .)
+    READ            reduce using rule 48 (statement -> condition .)
+    IF              reduce using rule 48 (statement -> condition .)
+    VOID            reduce using rule 48 (statement -> condition .)
+    BOOLEAN         reduce using rule 48 (statement -> condition .)
+    INT             reduce using rule 48 (statement -> condition .)
+    DOUBLE          reduce using rule 48 (statement -> condition .)
+    STRING          reduce using rule 48 (statement -> condition .)
+    FOR             reduce using rule 48 (statement -> condition .)
+    WHILE           reduce using rule 48 (statement -> condition .)
+    CLOSE_BRACE     reduce using rule 48 (statement -> condition .)
+    RETURN          reduce using rule 48 (statement -> condition .)
+    FUNCTION        reduce using rule 48 (statement -> condition .)
+    MAIN            reduce using rule 48 (statement -> condition .)
+
+
+state 24
+
+    (13) condition -> IF . OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+
+    OPEN_PAREN      shift and go to state 45
+
+
+state 25
+
+    (53) type -> INT .
+
+    OPEN_BRACKET    reduce using rule 53 (type -> INT .)
+    ID              reduce using rule 53 (type -> INT .)
+
+
+state 26
+
+    (54) type -> DOUBLE .
+
+    OPEN_BRACKET    reduce using rule 54 (type -> DOUBLE .)
+    ID              reduce using rule 54 (type -> DOUBLE .)
+
+
+state 27
+
+    (52) type -> BOOLEAN .
+
+    OPEN_BRACKET    reduce using rule 52 (type -> BOOLEAN .)
+    ID              reduce using rule 52 (type -> BOOLEAN .)
+
+
+state 28
+
+    (50) statement -> loop .
+
+    ID              reduce using rule 50 (statement -> loop .)
+    PRINT           reduce using rule 50 (statement -> loop .)
+    READ            reduce using rule 50 (statement -> loop .)
+    IF              reduce using rule 50 (statement -> loop .)
+    VOID            reduce using rule 50 (statement -> loop .)
+    BOOLEAN         reduce using rule 50 (statement -> loop .)
+    INT             reduce using rule 50 (statement -> loop .)
+    DOUBLE          reduce using rule 50 (statement -> loop .)
+    STRING          reduce using rule 50 (statement -> loop .)
+    FOR             reduce using rule 50 (statement -> loop .)
+    WHILE           reduce using rule 50 (statement -> loop .)
+    CLOSE_BRACE     reduce using rule 50 (statement -> loop .)
+    RETURN          reduce using rule 50 (statement -> loop .)
+    FUNCTION        reduce using rule 50 (statement -> loop .)
+    MAIN            reduce using rule 50 (statement -> loop .)
+
+
+state 29
+
+    (49) statement -> asssign .
+
+    ID              reduce using rule 49 (statement -> asssign .)
+    PRINT           reduce using rule 49 (statement -> asssign .)
+    READ            reduce using rule 49 (statement -> asssign .)
+    IF              reduce using rule 49 (statement -> asssign .)
+    VOID            reduce using rule 49 (statement -> asssign .)
+    BOOLEAN         reduce using rule 49 (statement -> asssign .)
+    INT             reduce using rule 49 (statement -> asssign .)
+    DOUBLE          reduce using rule 49 (statement -> asssign .)
+    STRING          reduce using rule 49 (statement -> asssign .)
+    FOR             reduce using rule 49 (statement -> asssign .)
+    WHILE           reduce using rule 49 (statement -> asssign .)
+    CLOSE_BRACE     reduce using rule 49 (statement -> asssign .)
+    RETURN          reduce using rule 49 (statement -> asssign .)
+    FUNCTION        reduce using rule 49 (statement -> asssign .)
+    MAIN            reduce using rule 49 (statement -> asssign .)
+
+
+state 30
+
+    (16) readd -> READ OPEN_PAREN . ID COMMA expression CLOSE_PAREN SEMI_COLON
+
+    ID              shift and go to state 46
+
+
+state 31
+
+    (17) printt -> PRINT OPEN_PAREN . exp_expression CLOSE_PAREN SEMI_COLON
+    (21) exp_expression -> . expression eee
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    exp_expression                 shift and go to state 49
+    expression                     shift and go to state 50
+
+state 32
+
+    (75) whilee -> WHILE OPEN_PAREN . exp_expression CLOSE_PAREN block
+    (21) exp_expression -> . expression eee
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    exp_expression                 shift and go to state 51
+    expression                     shift and go to state 50
+
+state 33
+
+    (62) forr -> FOR OPEN_PAREN . ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+
+    ID              shift and go to state 52
+
+
+state 34
+
+    (44) masFullModules -> full_module . masFullModules
+    (44) masFullModules -> . full_module masFullModules
+    (45) masFullModules -> .
+    (40) full_module -> . statement
+    (41) full_module -> . variable
+    (42) full_module -> . functionn
+    (43) full_module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (83) functionn -> . FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    MAIN            reduce using rule 45 (masFullModules -> .)
+    FUNCTION        shift and go to state 16
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    full_module                    shift and go to state 34
+    statement                      shift and go to state 13
+    masFullModules                 shift and go to state 53
+    type                           shift and go to state 14
+    functionn                      shift and go to state 15
+    whilee                         shift and go to state 18
+    readd                          shift and go to state 5
+    f_call                         shift and go to state 19
+    variable                       shift and go to state 20
+    forr                           shift and go to state 21
+    condition                      shift and go to state 23
+    loop                           shift and go to state 28
+    asssign                        shift and go to state 29
+
+state 35
+
+    (1) program -> BEGIN ID OPEN_BRACE full_module masFullModules . MAIN full_block CLOSE_BRACE END
+
+    MAIN            shift and go to state 54
+
+
+state 36
+
+    (56) variable -> type var1 . SEMI_COLON
+
+    SEMI_COLON      shift and go to state 55
+
+
+state 37
+
+    (58) var1 -> var2 .
+
+    SEMI_COLON      reduce using rule 58 (var1 -> var2 .)
+
+
+state 38
+
+    (57) var1 -> OPEN_BRACKET . expression CLOSE_BRACKET var2
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 56
+
+state 39
+
+    (59) var2 -> ID . var3
+    (60) var3 -> . COMMA var2
+    (61) var3 -> .
+
+    COMMA           shift and go to state 57
+    SEMI_COLON      reduce using rule 61 (var3 -> .)
+
+    var3                           shift and go to state 58
+
+state 40
+
+    (83) functionn -> FUNCTION type . ID OPEN_PAREN params func1 CLOSE_PAREN f_block
+
+    ID              shift and go to state 59
+
+
+state 41
+
+    (3) asssign1 -> OPEN_BRACKET . asssign2
+    (5) asssign2 -> . expression CLOSE_BRACKET ASSIGN expression
+    (6) asssign2 -> . CLOSE_BRACKET ASSIGN OPEN_BRACE adata CLOSE_BRACE
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    CLOSE_BRACKET   shift and go to state 60
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression                     shift and go to state 62
+    asssign2                       shift and go to state 61
+    expression1                    shift and go to state 47
+
+state 42
+
+    (4) asssign1 -> ASSIGN . expression
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 63
+
+state 43
+
+    (2) asssign -> ID asssign1 . SEMI_COLON
+
+    SEMI_COLON      shift and go to state 64
+
+
+state 44
+
+    (102) f_call -> ID OPEN_PAREN . adata CLOSE_PAREN SEMI_COLON
+    (7) adata -> . expression adata
+    (8) adata -> . COMMA expression adata
+    (9) adata -> .
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    COMMA           shift and go to state 66
+    CLOSE_PAREN     reduce using rule 9 (adata -> .)
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 67
+    adata                          shift and go to state 65
+
+state 45
+
+    (13) condition -> IF OPEN_PAREN . exp_expression CLOSE_PAREN block conditionaux
+    (21) exp_expression -> . expression eee
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    exp_expression                 shift and go to state 68
+    expression                     shift and go to state 50
+
+state 46
+
+    (16) readd -> READ OPEN_PAREN ID . COMMA expression CLOSE_PAREN SEMI_COLON
+
+    COMMA           shift and go to state 69
+
+
+state 47
+
+    (27) expression -> expression1 . exp expression2
+    (65) exp -> . term exp1
+    (69) term -> . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    term                           shift and go to state 70
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    exp                            shift and go to state 79
+    factor                         shift and go to state 80
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 48
+
+    (28) expression1 -> NEGATION .
+
+    OPEN_PAREN      reduce using rule 28 (expression1 -> NEGATION .)
+    CINT            reduce using rule 28 (expression1 -> NEGATION .)
+    CDOUBLE         reduce using rule 28 (expression1 -> NEGATION .)
+    CSTRING         reduce using rule 28 (expression1 -> NEGATION .)
+    ID              reduce using rule 28 (expression1 -> NEGATION .)
+    TRUE            reduce using rule 28 (expression1 -> NEGATION .)
+    FALSE           reduce using rule 28 (expression1 -> NEGATION .)
+
+
+state 49
+
+    (17) printt -> PRINT OPEN_PAREN exp_expression . CLOSE_PAREN SEMI_COLON
+
+    CLOSE_PAREN     shift and go to state 84
+
+
+state 50
+
+    (21) exp_expression -> expression . eee
+    (22) eee -> . OR ee eee
+    (23) eee -> . AND ee eee
+    (24) eee -> .
+
+    OR              shift and go to state 86
+    AND             shift and go to state 87
+    CLOSE_PAREN     reduce using rule 24 (eee -> .)
+    SEMI_COLON      reduce using rule 24 (eee -> .)
+
+    eee                            shift and go to state 85
+
+state 51
+
+    (75) whilee -> WHILE OPEN_PAREN exp_expression . CLOSE_PAREN block
+
+    CLOSE_PAREN     shift and go to state 88
+
+
+state 52
+
+    (62) forr -> FOR OPEN_PAREN ID . ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+
+    ASSIGN          shift and go to state 89
+
+
+state 53
+
+    (44) masFullModules -> full_module masFullModules .
+
+    MAIN            reduce using rule 44 (masFullModules -> full_module masFullModules .)
+
+
+state 54
+
+    (1) program -> BEGIN ID OPEN_BRACE full_module masFullModules MAIN . full_block CLOSE_BRACE END
+    (37) full_block -> . OPEN_BRACE full_module masFullBlock CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 91
+
+    full_block                     shift and go to state 90
+
+state 55
+
+    (56) variable -> type var1 SEMI_COLON .
+
+    RETURN          reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    ID              reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    PRINT           reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    READ            reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    IF              reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    VOID            reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    BOOLEAN         reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    INT             reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    DOUBLE          reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    STRING          reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    FOR             reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    WHILE           reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    CLOSE_BRACE     reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    FUNCTION        reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+    MAIN            reduce using rule 56 (variable -> type var1 SEMI_COLON .)
+
+
+state 56
+
+    (57) var1 -> OPEN_BRACKET expression . CLOSE_BRACKET var2
+
+    CLOSE_BRACKET   shift and go to state 92
+
+
+state 57
+
+    (60) var3 -> COMMA . var2
+    (59) var2 -> . ID var3
+
+    ID              shift and go to state 39
+
+    var2                           shift and go to state 93
+
+state 58
+
+    (59) var2 -> ID var3 .
+
+    SEMI_COLON      reduce using rule 59 (var2 -> ID var3 .)
+
+
+state 59
+
+    (83) functionn -> FUNCTION type ID . OPEN_PAREN params func1 CLOSE_PAREN f_block
+
+    OPEN_PAREN      shift and go to state 94
+
+
+state 60
+
+    (6) asssign2 -> CLOSE_BRACKET . ASSIGN OPEN_BRACE adata CLOSE_BRACE
+
+    ASSIGN          shift and go to state 95
+
+
+state 61
+
+    (3) asssign1 -> OPEN_BRACKET asssign2 .
+
+    SEMI_COLON      reduce using rule 3 (asssign1 -> OPEN_BRACKET asssign2 .)
+
+
+state 62
+
+    (5) asssign2 -> expression . CLOSE_BRACKET ASSIGN expression
+
+    CLOSE_BRACKET   shift and go to state 96
+
+
+state 63
+
+    (4) asssign1 -> ASSIGN expression .
+
+    SEMI_COLON      reduce using rule 4 (asssign1 -> ASSIGN expression .)
+
+
+state 64
+
+    (2) asssign -> ID asssign1 SEMI_COLON .
+
+    RETURN          reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    ID              reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    PRINT           reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    READ            reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    IF              reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    VOID            reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    BOOLEAN         reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    INT             reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    DOUBLE          reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    STRING          reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    FOR             reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    WHILE           reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    CLOSE_BRACE     reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    FUNCTION        reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+    MAIN            reduce using rule 2 (asssign -> ID asssign1 SEMI_COLON .)
+
+
+state 65
+
+    (102) f_call -> ID OPEN_PAREN adata . CLOSE_PAREN SEMI_COLON
+
+    CLOSE_PAREN     shift and go to state 97
+
+
+state 66
+
+    (8) adata -> COMMA . expression adata
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 98
+
+state 67
+
+    (7) adata -> expression . adata
+    (7) adata -> . expression adata
+    (8) adata -> . COMMA expression adata
+    (9) adata -> .
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    COMMA           shift and go to state 66
+    CLOSE_PAREN     reduce using rule 9 (adata -> .)
+    CLOSE_BRACE     reduce using rule 9 (adata -> .)
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    adata                          shift and go to state 99
+    expression                     shift and go to state 67
+
+state 68
+
+    (13) condition -> IF OPEN_PAREN exp_expression . CLOSE_PAREN block conditionaux
+
+    CLOSE_PAREN     shift and go to state 100
+
+
+state 69
+
+    (16) readd -> READ OPEN_PAREN ID COMMA . expression CLOSE_PAREN SEMI_COLON
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 101
+
+state 70
+
+    (65) exp -> term . exp1
+    (66) exp1 -> . PLUS term exp1
+    (67) exp1 -> . MINUS term exp1
+    (68) exp1 -> .
+
+    PLUS            shift and go to state 102
+    MINUS           shift and go to state 104
+    GREATER_THAN    reduce using rule 68 (exp1 -> .)
+    LESS_THAN       reduce using rule 68 (exp1 -> .)
+    DIFFERENT       reduce using rule 68 (exp1 -> .)
+    GREAT_EQUAL     reduce using rule 68 (exp1 -> .)
+    LESS_EQUAL      reduce using rule 68 (exp1 -> .)
+    EQUALS          reduce using rule 68 (exp1 -> .)
+    OR              reduce using rule 68 (exp1 -> .)
+    AND             reduce using rule 68 (exp1 -> .)
+    CLOSE_PAREN     reduce using rule 68 (exp1 -> .)
+    CLOSE_BRACKET   reduce using rule 68 (exp1 -> .)
+    SEMI_COLON      reduce using rule 68 (exp1 -> .)
+    COMMA           reduce using rule 68 (exp1 -> .)
+    NEGATION        reduce using rule 68 (exp1 -> .)
+    OPEN_PAREN      reduce using rule 68 (exp1 -> .)
+    CINT            reduce using rule 68 (exp1 -> .)
+    CDOUBLE         reduce using rule 68 (exp1 -> .)
+    CSTRING         reduce using rule 68 (exp1 -> .)
+    ID              reduce using rule 68 (exp1 -> .)
+    TRUE            reduce using rule 68 (exp1 -> .)
+    FALSE           reduce using rule 68 (exp1 -> .)
+    CLOSE_BRACE     reduce using rule 68 (exp1 -> .)
+
+    exp1                           shift and go to state 103
+
+state 71
+
+    (98) const -> CSTRING .
+
+    TIMES           reduce using rule 98 (const -> CSTRING .)
+    DIVIDE          reduce using rule 98 (const -> CSTRING .)
+    PLUS            reduce using rule 98 (const -> CSTRING .)
+    MINUS           reduce using rule 98 (const -> CSTRING .)
+    OR              reduce using rule 98 (const -> CSTRING .)
+    AND             reduce using rule 98 (const -> CSTRING .)
+    CLOSE_PAREN     reduce using rule 98 (const -> CSTRING .)
+    CLOSE_BRACKET   reduce using rule 98 (const -> CSTRING .)
+    SEMI_COLON      reduce using rule 98 (const -> CSTRING .)
+    COMMA           reduce using rule 98 (const -> CSTRING .)
+    NEGATION        reduce using rule 98 (const -> CSTRING .)
+    OPEN_PAREN      reduce using rule 98 (const -> CSTRING .)
+    CINT            reduce using rule 98 (const -> CSTRING .)
+    CDOUBLE         reduce using rule 98 (const -> CSTRING .)
+    CSTRING         reduce using rule 98 (const -> CSTRING .)
+    ID              reduce using rule 98 (const -> CSTRING .)
+    TRUE            reduce using rule 98 (const -> CSTRING .)
+    FALSE           reduce using rule 98 (const -> CSTRING .)
+    CLOSE_BRACE     reduce using rule 98 (const -> CSTRING .)
+    GREATER_THAN    reduce using rule 98 (const -> CSTRING .)
+    LESS_THAN       reduce using rule 98 (const -> CSTRING .)
+    DIFFERENT       reduce using rule 98 (const -> CSTRING .)
+    GREAT_EQUAL     reduce using rule 98 (const -> CSTRING .)
+    LESS_EQUAL      reduce using rule 98 (const -> CSTRING .)
+    EQUALS          reduce using rule 98 (const -> CSTRING .)
+
+
+state 72
+
+    (90) varconst -> const .
+
+    TIMES           reduce using rule 90 (varconst -> const .)
+    DIVIDE          reduce using rule 90 (varconst -> const .)
+    PLUS            reduce using rule 90 (varconst -> const .)
+    MINUS           reduce using rule 90 (varconst -> const .)
+    GREATER_THAN    reduce using rule 90 (varconst -> const .)
+    LESS_THAN       reduce using rule 90 (varconst -> const .)
+    DIFFERENT       reduce using rule 90 (varconst -> const .)
+    GREAT_EQUAL     reduce using rule 90 (varconst -> const .)
+    LESS_EQUAL      reduce using rule 90 (varconst -> const .)
+    EQUALS          reduce using rule 90 (varconst -> const .)
+    OR              reduce using rule 90 (varconst -> const .)
+    AND             reduce using rule 90 (varconst -> const .)
+    CLOSE_PAREN     reduce using rule 90 (varconst -> const .)
+    CLOSE_BRACKET   reduce using rule 90 (varconst -> const .)
+    SEMI_COLON      reduce using rule 90 (varconst -> const .)
+    COMMA           reduce using rule 90 (varconst -> const .)
+    NEGATION        reduce using rule 90 (varconst -> const .)
+    OPEN_PAREN      reduce using rule 90 (varconst -> const .)
+    CINT            reduce using rule 90 (varconst -> const .)
+    CDOUBLE         reduce using rule 90 (varconst -> const .)
+    CSTRING         reduce using rule 90 (varconst -> const .)
+    ID              reduce using rule 90 (varconst -> const .)
+    TRUE            reduce using rule 90 (varconst -> const .)
+    FALSE           reduce using rule 90 (varconst -> const .)
+    CLOSE_BRACE     reduce using rule 90 (varconst -> const .)
+
+
+state 73
+
+    (74) factor -> varconst .
+
+    TIMES           reduce using rule 74 (factor -> varconst .)
+    DIVIDE          reduce using rule 74 (factor -> varconst .)
+    PLUS            reduce using rule 74 (factor -> varconst .)
+    MINUS           reduce using rule 74 (factor -> varconst .)
+    OR              reduce using rule 74 (factor -> varconst .)
+    AND             reduce using rule 74 (factor -> varconst .)
+    CLOSE_PAREN     reduce using rule 74 (factor -> varconst .)
+    CLOSE_BRACKET   reduce using rule 74 (factor -> varconst .)
+    SEMI_COLON      reduce using rule 74 (factor -> varconst .)
+    COMMA           reduce using rule 74 (factor -> varconst .)
+    NEGATION        reduce using rule 74 (factor -> varconst .)
+    OPEN_PAREN      reduce using rule 74 (factor -> varconst .)
+    CINT            reduce using rule 74 (factor -> varconst .)
+    CDOUBLE         reduce using rule 74 (factor -> varconst .)
+    CSTRING         reduce using rule 74 (factor -> varconst .)
+    ID              reduce using rule 74 (factor -> varconst .)
+    TRUE            reduce using rule 74 (factor -> varconst .)
+    FALSE           reduce using rule 74 (factor -> varconst .)
+    CLOSE_BRACE     reduce using rule 74 (factor -> varconst .)
+    GREATER_THAN    reduce using rule 74 (factor -> varconst .)
+    LESS_THAN       reduce using rule 74 (factor -> varconst .)
+    DIFFERENT       reduce using rule 74 (factor -> varconst .)
+    GREAT_EQUAL     reduce using rule 74 (factor -> varconst .)
+    LESS_EQUAL      reduce using rule 74 (factor -> varconst .)
+    EQUALS          reduce using rule 74 (factor -> varconst .)
+
+
+state 74
+
+    (99) constbool -> TRUE .
+
+    TIMES           reduce using rule 99 (constbool -> TRUE .)
+    DIVIDE          reduce using rule 99 (constbool -> TRUE .)
+    PLUS            reduce using rule 99 (constbool -> TRUE .)
+    MINUS           reduce using rule 99 (constbool -> TRUE .)
+    OR              reduce using rule 99 (constbool -> TRUE .)
+    AND             reduce using rule 99 (constbool -> TRUE .)
+    CLOSE_PAREN     reduce using rule 99 (constbool -> TRUE .)
+    CLOSE_BRACKET   reduce using rule 99 (constbool -> TRUE .)
+    SEMI_COLON      reduce using rule 99 (constbool -> TRUE .)
+    COMMA           reduce using rule 99 (constbool -> TRUE .)
+    NEGATION        reduce using rule 99 (constbool -> TRUE .)
+    OPEN_PAREN      reduce using rule 99 (constbool -> TRUE .)
+    CINT            reduce using rule 99 (constbool -> TRUE .)
+    CDOUBLE         reduce using rule 99 (constbool -> TRUE .)
+    CSTRING         reduce using rule 99 (constbool -> TRUE .)
+    ID              reduce using rule 99 (constbool -> TRUE .)
+    TRUE            reduce using rule 99 (constbool -> TRUE .)
+    FALSE           reduce using rule 99 (constbool -> TRUE .)
+    CLOSE_BRACE     reduce using rule 99 (constbool -> TRUE .)
+    GREATER_THAN    reduce using rule 99 (constbool -> TRUE .)
+    LESS_THAN       reduce using rule 99 (constbool -> TRUE .)
+    DIFFERENT       reduce using rule 99 (constbool -> TRUE .)
+    GREAT_EQUAL     reduce using rule 99 (constbool -> TRUE .)
+    LESS_EQUAL      reduce using rule 99 (constbool -> TRUE .)
+    EQUALS          reduce using rule 99 (constbool -> TRUE .)
+
+
+state 75
+
+    (96) const -> CDOUBLE .
+
+    TIMES           reduce using rule 96 (const -> CDOUBLE .)
+    DIVIDE          reduce using rule 96 (const -> CDOUBLE .)
+    PLUS            reduce using rule 96 (const -> CDOUBLE .)
+    MINUS           reduce using rule 96 (const -> CDOUBLE .)
+    OR              reduce using rule 96 (const -> CDOUBLE .)
+    AND             reduce using rule 96 (const -> CDOUBLE .)
+    CLOSE_PAREN     reduce using rule 96 (const -> CDOUBLE .)
+    CLOSE_BRACKET   reduce using rule 96 (const -> CDOUBLE .)
+    SEMI_COLON      reduce using rule 96 (const -> CDOUBLE .)
+    COMMA           reduce using rule 96 (const -> CDOUBLE .)
+    NEGATION        reduce using rule 96 (const -> CDOUBLE .)
+    OPEN_PAREN      reduce using rule 96 (const -> CDOUBLE .)
+    CINT            reduce using rule 96 (const -> CDOUBLE .)
+    CDOUBLE         reduce using rule 96 (const -> CDOUBLE .)
+    CSTRING         reduce using rule 96 (const -> CDOUBLE .)
+    ID              reduce using rule 96 (const -> CDOUBLE .)
+    TRUE            reduce using rule 96 (const -> CDOUBLE .)
+    FALSE           reduce using rule 96 (const -> CDOUBLE .)
+    CLOSE_BRACE     reduce using rule 96 (const -> CDOUBLE .)
+    GREATER_THAN    reduce using rule 96 (const -> CDOUBLE .)
+    LESS_THAN       reduce using rule 96 (const -> CDOUBLE .)
+    DIFFERENT       reduce using rule 96 (const -> CDOUBLE .)
+    GREAT_EQUAL     reduce using rule 96 (const -> CDOUBLE .)
+    LESS_EQUAL      reduce using rule 96 (const -> CDOUBLE .)
+    EQUALS          reduce using rule 96 (const -> CDOUBLE .)
+
+
+state 76
+
+    (100) constbool -> FALSE .
+
+    TIMES           reduce using rule 100 (constbool -> FALSE .)
+    DIVIDE          reduce using rule 100 (constbool -> FALSE .)
+    PLUS            reduce using rule 100 (constbool -> FALSE .)
+    MINUS           reduce using rule 100 (constbool -> FALSE .)
+    OR              reduce using rule 100 (constbool -> FALSE .)
+    AND             reduce using rule 100 (constbool -> FALSE .)
+    CLOSE_PAREN     reduce using rule 100 (constbool -> FALSE .)
+    CLOSE_BRACKET   reduce using rule 100 (constbool -> FALSE .)
+    SEMI_COLON      reduce using rule 100 (constbool -> FALSE .)
+    COMMA           reduce using rule 100 (constbool -> FALSE .)
+    NEGATION        reduce using rule 100 (constbool -> FALSE .)
+    OPEN_PAREN      reduce using rule 100 (constbool -> FALSE .)
+    CINT            reduce using rule 100 (constbool -> FALSE .)
+    CDOUBLE         reduce using rule 100 (constbool -> FALSE .)
+    CSTRING         reduce using rule 100 (constbool -> FALSE .)
+    ID              reduce using rule 100 (constbool -> FALSE .)
+    TRUE            reduce using rule 100 (constbool -> FALSE .)
+    FALSE           reduce using rule 100 (constbool -> FALSE .)
+    CLOSE_BRACE     reduce using rule 100 (constbool -> FALSE .)
+    GREATER_THAN    reduce using rule 100 (constbool -> FALSE .)
+    LESS_THAN       reduce using rule 100 (constbool -> FALSE .)
+    DIFFERENT       reduce using rule 100 (constbool -> FALSE .)
+    GREAT_EQUAL     reduce using rule 100 (constbool -> FALSE .)
+    LESS_EQUAL      reduce using rule 100 (constbool -> FALSE .)
+    EQUALS          reduce using rule 100 (constbool -> FALSE .)
+
+
+state 77
+
+    (92) constID -> ID . masconstID
+    (93) masconstID -> . OPEN_BRACKET expression CLOSE_BRACKET
+    (94) masconstID -> .
+
+    OPEN_BRACKET    shift and go to state 106
+    TIMES           reduce using rule 94 (masconstID -> .)
+    DIVIDE          reduce using rule 94 (masconstID -> .)
+    PLUS            reduce using rule 94 (masconstID -> .)
+    MINUS           reduce using rule 94 (masconstID -> .)
+    GREATER_THAN    reduce using rule 94 (masconstID -> .)
+    LESS_THAN       reduce using rule 94 (masconstID -> .)
+    DIFFERENT       reduce using rule 94 (masconstID -> .)
+    GREAT_EQUAL     reduce using rule 94 (masconstID -> .)
+    LESS_EQUAL      reduce using rule 94 (masconstID -> .)
+    EQUALS          reduce using rule 94 (masconstID -> .)
+    OR              reduce using rule 94 (masconstID -> .)
+    AND             reduce using rule 94 (masconstID -> .)
+    CLOSE_PAREN     reduce using rule 94 (masconstID -> .)
+    CLOSE_BRACKET   reduce using rule 94 (masconstID -> .)
+    SEMI_COLON      reduce using rule 94 (masconstID -> .)
+    COMMA           reduce using rule 94 (masconstID -> .)
+    NEGATION        reduce using rule 94 (masconstID -> .)
+    OPEN_PAREN      reduce using rule 94 (masconstID -> .)
+    CINT            reduce using rule 94 (masconstID -> .)
+    CDOUBLE         reduce using rule 94 (masconstID -> .)
+    CSTRING         reduce using rule 94 (masconstID -> .)
+    ID              reduce using rule 94 (masconstID -> .)
+    TRUE            reduce using rule 94 (masconstID -> .)
+    FALSE           reduce using rule 94 (masconstID -> .)
+    CLOSE_BRACE     reduce using rule 94 (masconstID -> .)
+
+    masconstID                     shift and go to state 105
+
+state 78
+
+    (73) factor -> OPEN_PAREN . expression CLOSE_PAREN
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 107
+
+state 79
+
+    (27) expression -> expression1 exp . expression2
+    (30) expression2 -> . GREATER_THAN expression1 exp
+    (31) expression2 -> . LESS_THAN expression1 exp
+    (32) expression2 -> . DIFFERENT expression1 exp
+    (33) expression2 -> . GREAT_EQUAL expression1 exp
+    (34) expression2 -> . LESS_EQUAL expression1 exp
+    (35) expression2 -> . EQUALS expression1 exp
+    (36) expression2 -> .
+
+    GREATER_THAN    shift and go to state 111
+    LESS_THAN       shift and go to state 112
+    DIFFERENT       shift and go to state 108
+    GREAT_EQUAL     shift and go to state 114
+    LESS_EQUAL      shift and go to state 110
+    EQUALS          shift and go to state 109
+    OR              reduce using rule 36 (expression2 -> .)
+    AND             reduce using rule 36 (expression2 -> .)
+    CLOSE_PAREN     reduce using rule 36 (expression2 -> .)
+    CLOSE_BRACKET   reduce using rule 36 (expression2 -> .)
+    SEMI_COLON      reduce using rule 36 (expression2 -> .)
+    COMMA           reduce using rule 36 (expression2 -> .)
+    NEGATION        reduce using rule 36 (expression2 -> .)
+    OPEN_PAREN      reduce using rule 36 (expression2 -> .)
+    CINT            reduce using rule 36 (expression2 -> .)
+    CDOUBLE         reduce using rule 36 (expression2 -> .)
+    CSTRING         reduce using rule 36 (expression2 -> .)
+    ID              reduce using rule 36 (expression2 -> .)
+    TRUE            reduce using rule 36 (expression2 -> .)
+    FALSE           reduce using rule 36 (expression2 -> .)
+    CLOSE_BRACE     reduce using rule 36 (expression2 -> .)
+
+    expression2                    shift and go to state 113
+
+state 80
+
+    (69) term -> factor . term1
+    (70) term1 -> . TIMES factor term1
+    (71) term1 -> . DIVIDE factor term1
+    (72) term1 -> .
+
+    TIMES           shift and go to state 115
+    DIVIDE          shift and go to state 116
+    PLUS            reduce using rule 72 (term1 -> .)
+    MINUS           reduce using rule 72 (term1 -> .)
+    GREATER_THAN    reduce using rule 72 (term1 -> .)
+    LESS_THAN       reduce using rule 72 (term1 -> .)
+    DIFFERENT       reduce using rule 72 (term1 -> .)
+    GREAT_EQUAL     reduce using rule 72 (term1 -> .)
+    LESS_EQUAL      reduce using rule 72 (term1 -> .)
+    EQUALS          reduce using rule 72 (term1 -> .)
+    OR              reduce using rule 72 (term1 -> .)
+    AND             reduce using rule 72 (term1 -> .)
+    CLOSE_PAREN     reduce using rule 72 (term1 -> .)
+    CLOSE_BRACKET   reduce using rule 72 (term1 -> .)
+    SEMI_COLON      reduce using rule 72 (term1 -> .)
+    COMMA           reduce using rule 72 (term1 -> .)
+    NEGATION        reduce using rule 72 (term1 -> .)
+    OPEN_PAREN      reduce using rule 72 (term1 -> .)
+    CINT            reduce using rule 72 (term1 -> .)
+    CDOUBLE         reduce using rule 72 (term1 -> .)
+    CSTRING         reduce using rule 72 (term1 -> .)
+    ID              reduce using rule 72 (term1 -> .)
+    TRUE            reduce using rule 72 (term1 -> .)
+    FALSE           reduce using rule 72 (term1 -> .)
+    CLOSE_BRACE     reduce using rule 72 (term1 -> .)
+
+    term1                          shift and go to state 117
+
+state 81
+
+    (97) const -> constbool .
+
+    TIMES           reduce using rule 97 (const -> constbool .)
+    DIVIDE          reduce using rule 97 (const -> constbool .)
+    PLUS            reduce using rule 97 (const -> constbool .)
+    MINUS           reduce using rule 97 (const -> constbool .)
+    OR              reduce using rule 97 (const -> constbool .)
+    AND             reduce using rule 97 (const -> constbool .)
+    CLOSE_PAREN     reduce using rule 97 (const -> constbool .)
+    CLOSE_BRACKET   reduce using rule 97 (const -> constbool .)
+    SEMI_COLON      reduce using rule 97 (const -> constbool .)
+    COMMA           reduce using rule 97 (const -> constbool .)
+    NEGATION        reduce using rule 97 (const -> constbool .)
+    OPEN_PAREN      reduce using rule 97 (const -> constbool .)
+    CINT            reduce using rule 97 (const -> constbool .)
+    CDOUBLE         reduce using rule 97 (const -> constbool .)
+    CSTRING         reduce using rule 97 (const -> constbool .)
+    ID              reduce using rule 97 (const -> constbool .)
+    TRUE            reduce using rule 97 (const -> constbool .)
+    FALSE           reduce using rule 97 (const -> constbool .)
+    CLOSE_BRACE     reduce using rule 97 (const -> constbool .)
+    GREATER_THAN    reduce using rule 97 (const -> constbool .)
+    LESS_THAN       reduce using rule 97 (const -> constbool .)
+    DIFFERENT       reduce using rule 97 (const -> constbool .)
+    GREAT_EQUAL     reduce using rule 97 (const -> constbool .)
+    LESS_EQUAL      reduce using rule 97 (const -> constbool .)
+    EQUALS          reduce using rule 97 (const -> constbool .)
+
+
+state 82
+
+    (95) const -> CINT .
+
+    TIMES           reduce using rule 95 (const -> CINT .)
+    DIVIDE          reduce using rule 95 (const -> CINT .)
+    PLUS            reduce using rule 95 (const -> CINT .)
+    MINUS           reduce using rule 95 (const -> CINT .)
+    OR              reduce using rule 95 (const -> CINT .)
+    AND             reduce using rule 95 (const -> CINT .)
+    CLOSE_PAREN     reduce using rule 95 (const -> CINT .)
+    CLOSE_BRACKET   reduce using rule 95 (const -> CINT .)
+    SEMI_COLON      reduce using rule 95 (const -> CINT .)
+    COMMA           reduce using rule 95 (const -> CINT .)
+    NEGATION        reduce using rule 95 (const -> CINT .)
+    OPEN_PAREN      reduce using rule 95 (const -> CINT .)
+    CINT            reduce using rule 95 (const -> CINT .)
+    CDOUBLE         reduce using rule 95 (const -> CINT .)
+    CSTRING         reduce using rule 95 (const -> CINT .)
+    ID              reduce using rule 95 (const -> CINT .)
+    TRUE            reduce using rule 95 (const -> CINT .)
+    FALSE           reduce using rule 95 (const -> CINT .)
+    CLOSE_BRACE     reduce using rule 95 (const -> CINT .)
+    GREATER_THAN    reduce using rule 95 (const -> CINT .)
+    LESS_THAN       reduce using rule 95 (const -> CINT .)
+    DIFFERENT       reduce using rule 95 (const -> CINT .)
+    GREAT_EQUAL     reduce using rule 95 (const -> CINT .)
+    LESS_EQUAL      reduce using rule 95 (const -> CINT .)
+    EQUALS          reduce using rule 95 (const -> CINT .)
+
+
+state 83
+
+    (91) varconst -> constID .
+
+    TIMES           reduce using rule 91 (varconst -> constID .)
+    DIVIDE          reduce using rule 91 (varconst -> constID .)
+    PLUS            reduce using rule 91 (varconst -> constID .)
+    MINUS           reduce using rule 91 (varconst -> constID .)
+    GREATER_THAN    reduce using rule 91 (varconst -> constID .)
+    LESS_THAN       reduce using rule 91 (varconst -> constID .)
+    DIFFERENT       reduce using rule 91 (varconst -> constID .)
+    GREAT_EQUAL     reduce using rule 91 (varconst -> constID .)
+    LESS_EQUAL      reduce using rule 91 (varconst -> constID .)
+    EQUALS          reduce using rule 91 (varconst -> constID .)
+    OR              reduce using rule 91 (varconst -> constID .)
+    AND             reduce using rule 91 (varconst -> constID .)
+    CLOSE_PAREN     reduce using rule 91 (varconst -> constID .)
+    CLOSE_BRACKET   reduce using rule 91 (varconst -> constID .)
+    SEMI_COLON      reduce using rule 91 (varconst -> constID .)
+    COMMA           reduce using rule 91 (varconst -> constID .)
+    NEGATION        reduce using rule 91 (varconst -> constID .)
+    OPEN_PAREN      reduce using rule 91 (varconst -> constID .)
+    CINT            reduce using rule 91 (varconst -> constID .)
+    CDOUBLE         reduce using rule 91 (varconst -> constID .)
+    CSTRING         reduce using rule 91 (varconst -> constID .)
+    ID              reduce using rule 91 (varconst -> constID .)
+    TRUE            reduce using rule 91 (varconst -> constID .)
+    FALSE           reduce using rule 91 (varconst -> constID .)
+    CLOSE_BRACE     reduce using rule 91 (varconst -> constID .)
+
+
+state 84
+
+    (17) printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN . SEMI_COLON
+
+    SEMI_COLON      shift and go to state 118
+
+
+state 85
+
+    (21) exp_expression -> expression eee .
+
+    CLOSE_PAREN     reduce using rule 21 (exp_expression -> expression eee .)
+    SEMI_COLON      reduce using rule 21 (exp_expression -> expression eee .)
+
+
+state 86
+
+    (22) eee -> OR . ee eee
+    (25) ee -> . expression
+    (26) ee -> .
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    OR              reduce using rule 26 (ee -> .)
+    AND             reduce using rule 26 (ee -> .)
+    CLOSE_PAREN     reduce using rule 26 (ee -> .)
+    SEMI_COLON      reduce using rule 26 (ee -> .)
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    ee                             shift and go to state 119
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 120
+
+state 87
+
+    (23) eee -> AND . ee eee
+    (25) ee -> . expression
+    (26) ee -> .
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    OR              reduce using rule 26 (ee -> .)
+    AND             reduce using rule 26 (ee -> .)
+    CLOSE_PAREN     reduce using rule 26 (ee -> .)
+    SEMI_COLON      reduce using rule 26 (ee -> .)
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    ee                             shift and go to state 121
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 120
+
+state 88
+
+    (75) whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN . block
+    (10) block -> . OPEN_BRACE module masModule CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 122
+
+    block                          shift and go to state 123
+
+state 89
+
+    (62) forr -> FOR OPEN_PAREN ID ASSIGN . const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    constbool                      shift and go to state 81
+    const                          shift and go to state 124
+
+state 90
+
+    (1) program -> BEGIN ID OPEN_BRACE full_module masFullModules MAIN full_block . CLOSE_BRACE END
+
+    CLOSE_BRACE     shift and go to state 125
+
+
+state 91
+
+    (37) full_block -> OPEN_BRACE . full_module masFullBlock CLOSE_BRACE
+    (40) full_module -> . statement
+    (41) full_module -> . variable
+    (42) full_module -> . functionn
+    (43) full_module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (83) functionn -> . FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    FUNCTION        shift and go to state 16
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    readd                          shift and go to state 5
+    full_module                    shift and go to state 126
+    statement                      shift and go to state 13
+    type                           shift and go to state 14
+    functionn                      shift and go to state 15
+    whilee                         shift and go to state 18
+    f_call                         shift and go to state 19
+    variable                       shift and go to state 20
+    forr                           shift and go to state 21
+    condition                      shift and go to state 23
+    loop                           shift and go to state 28
+    asssign                        shift and go to state 29
+
+state 92
+
+    (57) var1 -> OPEN_BRACKET expression CLOSE_BRACKET . var2
+    (59) var2 -> . ID var3
+
+    ID              shift and go to state 39
+
+    var2                           shift and go to state 127
+
+state 93
+
+    (60) var3 -> COMMA var2 .
+
+    SEMI_COLON      reduce using rule 60 (var3 -> COMMA var2 .)
+
+
+state 94
+
+    (83) functionn -> FUNCTION type ID OPEN_PAREN . params func1 CLOSE_PAREN f_block
+    (86) params -> . type para1 ID
+    (87) params -> .
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+
+    COMMA           reduce using rule 87 (params -> .)
+    CLOSE_PAREN     reduce using rule 87 (params -> .)
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+
+    params                         shift and go to state 128
+    type                           shift and go to state 129
+
+state 95
+
+    (6) asssign2 -> CLOSE_BRACKET ASSIGN . OPEN_BRACE adata CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 130
+
+
+state 96
+
+    (5) asssign2 -> expression CLOSE_BRACKET . ASSIGN expression
+
+    ASSIGN          shift and go to state 131
+
+
+state 97
+
+    (102) f_call -> ID OPEN_PAREN adata CLOSE_PAREN . SEMI_COLON
+
+    SEMI_COLON      shift and go to state 132
+
+
+state 98
+
+    (8) adata -> COMMA expression . adata
+    (7) adata -> . expression adata
+    (8) adata -> . COMMA expression adata
+    (9) adata -> .
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    COMMA           shift and go to state 66
+    CLOSE_PAREN     reduce using rule 9 (adata -> .)
+    CLOSE_BRACE     reduce using rule 9 (adata -> .)
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    adata                          shift and go to state 133
+    expression                     shift and go to state 67
+
+state 99
+
+    (7) adata -> expression adata .
+
+    CLOSE_PAREN     reduce using rule 7 (adata -> expression adata .)
+    CLOSE_BRACE     reduce using rule 7 (adata -> expression adata .)
+
+
+state 100
+
+    (13) condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN . block conditionaux
+    (10) block -> . OPEN_BRACE module masModule CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 122
+
+    block                          shift and go to state 134
+
+state 101
+
+    (16) readd -> READ OPEN_PAREN ID COMMA expression . CLOSE_PAREN SEMI_COLON
+
+    CLOSE_PAREN     shift and go to state 135
+
+
+state 102
+
+    (66) exp1 -> PLUS . term exp1
+    (69) term -> . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    term                           shift and go to state 136
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    factor                         shift and go to state 80
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 103
+
+    (65) exp -> term exp1 .
+
+    OR              reduce using rule 65 (exp -> term exp1 .)
+    AND             reduce using rule 65 (exp -> term exp1 .)
+    CLOSE_PAREN     reduce using rule 65 (exp -> term exp1 .)
+    CLOSE_BRACKET   reduce using rule 65 (exp -> term exp1 .)
+    SEMI_COLON      reduce using rule 65 (exp -> term exp1 .)
+    COMMA           reduce using rule 65 (exp -> term exp1 .)
+    NEGATION        reduce using rule 65 (exp -> term exp1 .)
+    OPEN_PAREN      reduce using rule 65 (exp -> term exp1 .)
+    CINT            reduce using rule 65 (exp -> term exp1 .)
+    CDOUBLE         reduce using rule 65 (exp -> term exp1 .)
+    CSTRING         reduce using rule 65 (exp -> term exp1 .)
+    ID              reduce using rule 65 (exp -> term exp1 .)
+    TRUE            reduce using rule 65 (exp -> term exp1 .)
+    FALSE           reduce using rule 65 (exp -> term exp1 .)
+    CLOSE_BRACE     reduce using rule 65 (exp -> term exp1 .)
+    GREATER_THAN    reduce using rule 65 (exp -> term exp1 .)
+    LESS_THAN       reduce using rule 65 (exp -> term exp1 .)
+    DIFFERENT       reduce using rule 65 (exp -> term exp1 .)
+    GREAT_EQUAL     reduce using rule 65 (exp -> term exp1 .)
+    LESS_EQUAL      reduce using rule 65 (exp -> term exp1 .)
+    EQUALS          reduce using rule 65 (exp -> term exp1 .)
+
+
+state 104
+
+    (67) exp1 -> MINUS . term exp1
+    (69) term -> . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    term                           shift and go to state 137
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    factor                         shift and go to state 80
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 105
+
+    (92) constID -> ID masconstID .
+
+    TIMES           reduce using rule 92 (constID -> ID masconstID .)
+    DIVIDE          reduce using rule 92 (constID -> ID masconstID .)
+    PLUS            reduce using rule 92 (constID -> ID masconstID .)
+    MINUS           reduce using rule 92 (constID -> ID masconstID .)
+    OR              reduce using rule 92 (constID -> ID masconstID .)
+    AND             reduce using rule 92 (constID -> ID masconstID .)
+    CLOSE_PAREN     reduce using rule 92 (constID -> ID masconstID .)
+    CLOSE_BRACKET   reduce using rule 92 (constID -> ID masconstID .)
+    SEMI_COLON      reduce using rule 92 (constID -> ID masconstID .)
+    COMMA           reduce using rule 92 (constID -> ID masconstID .)
+    NEGATION        reduce using rule 92 (constID -> ID masconstID .)
+    OPEN_PAREN      reduce using rule 92 (constID -> ID masconstID .)
+    CINT            reduce using rule 92 (constID -> ID masconstID .)
+    CDOUBLE         reduce using rule 92 (constID -> ID masconstID .)
+    CSTRING         reduce using rule 92 (constID -> ID masconstID .)
+    ID              reduce using rule 92 (constID -> ID masconstID .)
+    TRUE            reduce using rule 92 (constID -> ID masconstID .)
+    FALSE           reduce using rule 92 (constID -> ID masconstID .)
+    CLOSE_BRACE     reduce using rule 92 (constID -> ID masconstID .)
+    GREATER_THAN    reduce using rule 92 (constID -> ID masconstID .)
+    LESS_THAN       reduce using rule 92 (constID -> ID masconstID .)
+    DIFFERENT       reduce using rule 92 (constID -> ID masconstID .)
+    GREAT_EQUAL     reduce using rule 92 (constID -> ID masconstID .)
+    LESS_EQUAL      reduce using rule 92 (constID -> ID masconstID .)
+    EQUALS          reduce using rule 92 (constID -> ID masconstID .)
+
+
+state 106
+
+    (93) masconstID -> OPEN_BRACKET . expression CLOSE_BRACKET
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 138
+
+state 107
+
+    (73) factor -> OPEN_PAREN expression . CLOSE_PAREN
+
+    CLOSE_PAREN     shift and go to state 139
+
+
+state 108
+
+    (32) expression2 -> DIFFERENT . expression1 exp
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 140
+
+state 109
+
+    (35) expression2 -> EQUALS . expression1 exp
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 141
+
+state 110
+
+    (34) expression2 -> LESS_EQUAL . expression1 exp
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 142
+
+state 111
+
+    (30) expression2 -> GREATER_THAN . expression1 exp
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 143
+
+state 112
+
+    (31) expression2 -> LESS_THAN . expression1 exp
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 144
+
+state 113
+
+    (27) expression -> expression1 exp expression2 .
+
+    COMMA           reduce using rule 27 (expression -> expression1 exp expression2 .)
+    NEGATION        reduce using rule 27 (expression -> expression1 exp expression2 .)
+    OPEN_PAREN      reduce using rule 27 (expression -> expression1 exp expression2 .)
+    CINT            reduce using rule 27 (expression -> expression1 exp expression2 .)
+    CDOUBLE         reduce using rule 27 (expression -> expression1 exp expression2 .)
+    CSTRING         reduce using rule 27 (expression -> expression1 exp expression2 .)
+    ID              reduce using rule 27 (expression -> expression1 exp expression2 .)
+    TRUE            reduce using rule 27 (expression -> expression1 exp expression2 .)
+    FALSE           reduce using rule 27 (expression -> expression1 exp expression2 .)
+    CLOSE_PAREN     reduce using rule 27 (expression -> expression1 exp expression2 .)
+    CLOSE_BRACE     reduce using rule 27 (expression -> expression1 exp expression2 .)
+    OR              reduce using rule 27 (expression -> expression1 exp expression2 .)
+    AND             reduce using rule 27 (expression -> expression1 exp expression2 .)
+    SEMI_COLON      reduce using rule 27 (expression -> expression1 exp expression2 .)
+    CLOSE_BRACKET   reduce using rule 27 (expression -> expression1 exp expression2 .)
+
+
+state 114
+
+    (33) expression2 -> GREAT_EQUAL . expression1 exp
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 145
+
+state 115
+
+    (70) term1 -> TIMES . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    factor                         shift and go to state 146
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 116
+
+    (71) term1 -> DIVIDE . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    factor                         shift and go to state 147
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 117
+
+    (69) term -> factor term1 .
+
+    PLUS            reduce using rule 69 (term -> factor term1 .)
+    MINUS           reduce using rule 69 (term -> factor term1 .)
+    OR              reduce using rule 69 (term -> factor term1 .)
+    AND             reduce using rule 69 (term -> factor term1 .)
+    CLOSE_PAREN     reduce using rule 69 (term -> factor term1 .)
+    CLOSE_BRACKET   reduce using rule 69 (term -> factor term1 .)
+    SEMI_COLON      reduce using rule 69 (term -> factor term1 .)
+    COMMA           reduce using rule 69 (term -> factor term1 .)
+    NEGATION        reduce using rule 69 (term -> factor term1 .)
+    OPEN_PAREN      reduce using rule 69 (term -> factor term1 .)
+    CINT            reduce using rule 69 (term -> factor term1 .)
+    CDOUBLE         reduce using rule 69 (term -> factor term1 .)
+    CSTRING         reduce using rule 69 (term -> factor term1 .)
+    ID              reduce using rule 69 (term -> factor term1 .)
+    TRUE            reduce using rule 69 (term -> factor term1 .)
+    FALSE           reduce using rule 69 (term -> factor term1 .)
+    CLOSE_BRACE     reduce using rule 69 (term -> factor term1 .)
+    GREATER_THAN    reduce using rule 69 (term -> factor term1 .)
+    LESS_THAN       reduce using rule 69 (term -> factor term1 .)
+    DIFFERENT       reduce using rule 69 (term -> factor term1 .)
+    GREAT_EQUAL     reduce using rule 69 (term -> factor term1 .)
+    LESS_EQUAL      reduce using rule 69 (term -> factor term1 .)
+    EQUALS          reduce using rule 69 (term -> factor term1 .)
+
+
+state 118
+
+    (17) printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .
+
+    FUNCTION        reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    ID              reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    PRINT           reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    READ            reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    IF              reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    VOID            reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    BOOLEAN         reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    INT             reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    DOUBLE          reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    STRING          reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    FOR             reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    WHILE           reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    MAIN            reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    CLOSE_BRACE     reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+    RETURN          reduce using rule 17 (printt -> PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON .)
+
+
+state 119
+
+    (22) eee -> OR ee . eee
+    (22) eee -> . OR ee eee
+    (23) eee -> . AND ee eee
+    (24) eee -> .
+
+    OR              shift and go to state 86
+    AND             shift and go to state 87
+    CLOSE_PAREN     reduce using rule 24 (eee -> .)
+    SEMI_COLON      reduce using rule 24 (eee -> .)
+
+    eee                            shift and go to state 148
+
+state 120
+
+    (25) ee -> expression .
+
+    OR              reduce using rule 25 (ee -> expression .)
+    AND             reduce using rule 25 (ee -> expression .)
+    CLOSE_PAREN     reduce using rule 25 (ee -> expression .)
+    SEMI_COLON      reduce using rule 25 (ee -> expression .)
+
+
+state 121
+
+    (23) eee -> AND ee . eee
+    (22) eee -> . OR ee eee
+    (23) eee -> . AND ee eee
+    (24) eee -> .
+
+    OR              shift and go to state 86
+    AND             shift and go to state 87
+    CLOSE_PAREN     reduce using rule 24 (eee -> .)
+    SEMI_COLON      reduce using rule 24 (eee -> .)
+
+    eee                            shift and go to state 149
+
+state 122
+
+    (10) block -> OPEN_BRACE . module masModule CLOSE_BRACE
+    (18) module -> . statement
+    (19) module -> . variable
+    (20) module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    whilee                         shift and go to state 18
+    type                           shift and go to state 14
+    f_call                         shift and go to state 152
+    module                         shift and go to state 150
+    loop                           shift and go to state 28
+    statement                      shift and go to state 151
+    variable                       shift and go to state 153
+    forr                           shift and go to state 21
+    asssign                        shift and go to state 29
+    condition                      shift and go to state 23
+    readd                          shift and go to state 5
+
+state 123
+
+    (75) whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .
+
+    RETURN          reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    ID              reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    PRINT           reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    READ            reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    IF              reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    VOID            reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    BOOLEAN         reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    INT             reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    DOUBLE          reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    STRING          reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    FOR             reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    WHILE           reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    CLOSE_BRACE     reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    FUNCTION        reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+    MAIN            reduce using rule 75 (whilee -> WHILE OPEN_PAREN exp_expression CLOSE_PAREN block .)
+
+
+state 124
+
+    (62) forr -> FOR OPEN_PAREN ID ASSIGN const . SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+
+    SEMI_COLON      shift and go to state 154
+
+
+state 125
+
+    (1) program -> BEGIN ID OPEN_BRACE full_module masFullModules MAIN full_block CLOSE_BRACE . END
+
+    END             shift and go to state 155
+
+
+state 126
+
+    (37) full_block -> OPEN_BRACE full_module . masFullBlock CLOSE_BRACE
+    (38) masFullBlock -> . full_module masFullBlock
+    (39) masFullBlock -> .
+    (40) full_module -> . statement
+    (41) full_module -> . variable
+    (42) full_module -> . functionn
+    (43) full_module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (83) functionn -> . FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    CLOSE_BRACE     reduce using rule 39 (masFullBlock -> .)
+    FUNCTION        shift and go to state 16
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    readd                          shift and go to state 5
+    full_module                    shift and go to state 156
+    statement                      shift and go to state 13
+    type                           shift and go to state 14
+    functionn                      shift and go to state 15
+    whilee                         shift and go to state 18
+    f_call                         shift and go to state 19
+    variable                       shift and go to state 20
+    forr                           shift and go to state 21
+    condition                      shift and go to state 23
+    masFullBlock                   shift and go to state 157
+    loop                           shift and go to state 28
+    asssign                        shift and go to state 29
+
+state 127
+
+    (57) var1 -> OPEN_BRACKET expression CLOSE_BRACKET var2 .
+
+    SEMI_COLON      reduce using rule 57 (var1 -> OPEN_BRACKET expression CLOSE_BRACKET var2 .)
+
+
+state 128
+
+    (83) functionn -> FUNCTION type ID OPEN_PAREN params . func1 CLOSE_PAREN f_block
+    (84) func1 -> . COMMA params func1
+    (85) func1 -> .
+
+    COMMA           shift and go to state 159
+    CLOSE_PAREN     reduce using rule 85 (func1 -> .)
+
+    func1                          shift and go to state 158
+
+state 129
+
+    (86) params -> type . para1 ID
+    (88) para1 -> . OPEN_BRACKET CLOSE_BRACKET
+    (89) para1 -> .
+
+    OPEN_BRACKET    shift and go to state 161
+    ID              reduce using rule 89 (para1 -> .)
+
+    para1                          shift and go to state 160
+
+state 130
+
+    (6) asssign2 -> CLOSE_BRACKET ASSIGN OPEN_BRACE . adata CLOSE_BRACE
+    (7) adata -> . expression adata
+    (8) adata -> . COMMA expression adata
+    (9) adata -> .
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    COMMA           shift and go to state 66
+    CLOSE_BRACE     reduce using rule 9 (adata -> .)
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 67
+    adata                          shift and go to state 162
+
+state 131
+
+    (5) asssign2 -> expression CLOSE_BRACKET ASSIGN . expression
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 163
+
+state 132
+
+    (102) f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .
+
+    FUNCTION        reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    ID              reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    PRINT           reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    READ            reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    IF              reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    VOID            reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    BOOLEAN         reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    INT             reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    DOUBLE          reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    STRING          reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    FOR             reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    WHILE           reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    MAIN            reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    RETURN          reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+    CLOSE_BRACE     reduce using rule 102 (f_call -> ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON .)
+
+
+state 133
+
+    (8) adata -> COMMA expression adata .
+
+    CLOSE_PAREN     reduce using rule 8 (adata -> COMMA expression adata .)
+    CLOSE_BRACE     reduce using rule 8 (adata -> COMMA expression adata .)
+
+
+state 134
+
+    (13) condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block . conditionaux
+    (14) conditionaux -> . ELSE block
+    (15) conditionaux -> .
+
+    ELSE            shift and go to state 164
+    FUNCTION        reduce using rule 15 (conditionaux -> .)
+    ID              reduce using rule 15 (conditionaux -> .)
+    PRINT           reduce using rule 15 (conditionaux -> .)
+    READ            reduce using rule 15 (conditionaux -> .)
+    IF              reduce using rule 15 (conditionaux -> .)
+    VOID            reduce using rule 15 (conditionaux -> .)
+    BOOLEAN         reduce using rule 15 (conditionaux -> .)
+    INT             reduce using rule 15 (conditionaux -> .)
+    DOUBLE          reduce using rule 15 (conditionaux -> .)
+    STRING          reduce using rule 15 (conditionaux -> .)
+    FOR             reduce using rule 15 (conditionaux -> .)
+    WHILE           reduce using rule 15 (conditionaux -> .)
+    MAIN            reduce using rule 15 (conditionaux -> .)
+    CLOSE_BRACE     reduce using rule 15 (conditionaux -> .)
+    RETURN          reduce using rule 15 (conditionaux -> .)
+
+    conditionaux                   shift and go to state 165
+
+state 135
+
+    (16) readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN . SEMI_COLON
+
+    SEMI_COLON      shift and go to state 166
+
+
+state 136
+
+    (66) exp1 -> PLUS term . exp1
+    (66) exp1 -> . PLUS term exp1
+    (67) exp1 -> . MINUS term exp1
+    (68) exp1 -> .
+
+    PLUS            shift and go to state 102
+    MINUS           shift and go to state 104
+    GREATER_THAN    reduce using rule 68 (exp1 -> .)
+    LESS_THAN       reduce using rule 68 (exp1 -> .)
+    DIFFERENT       reduce using rule 68 (exp1 -> .)
+    GREAT_EQUAL     reduce using rule 68 (exp1 -> .)
+    LESS_EQUAL      reduce using rule 68 (exp1 -> .)
+    EQUALS          reduce using rule 68 (exp1 -> .)
+    OR              reduce using rule 68 (exp1 -> .)
+    AND             reduce using rule 68 (exp1 -> .)
+    CLOSE_PAREN     reduce using rule 68 (exp1 -> .)
+    CLOSE_BRACKET   reduce using rule 68 (exp1 -> .)
+    SEMI_COLON      reduce using rule 68 (exp1 -> .)
+    COMMA           reduce using rule 68 (exp1 -> .)
+    NEGATION        reduce using rule 68 (exp1 -> .)
+    OPEN_PAREN      reduce using rule 68 (exp1 -> .)
+    CINT            reduce using rule 68 (exp1 -> .)
+    CDOUBLE         reduce using rule 68 (exp1 -> .)
+    CSTRING         reduce using rule 68 (exp1 -> .)
+    ID              reduce using rule 68 (exp1 -> .)
+    TRUE            reduce using rule 68 (exp1 -> .)
+    FALSE           reduce using rule 68 (exp1 -> .)
+    CLOSE_BRACE     reduce using rule 68 (exp1 -> .)
+
+    exp1                           shift and go to state 167
+
+state 137
+
+    (67) exp1 -> MINUS term . exp1
+    (66) exp1 -> . PLUS term exp1
+    (67) exp1 -> . MINUS term exp1
+    (68) exp1 -> .
+
+    PLUS            shift and go to state 102
+    MINUS           shift and go to state 104
+    GREATER_THAN    reduce using rule 68 (exp1 -> .)
+    LESS_THAN       reduce using rule 68 (exp1 -> .)
+    DIFFERENT       reduce using rule 68 (exp1 -> .)
+    GREAT_EQUAL     reduce using rule 68 (exp1 -> .)
+    LESS_EQUAL      reduce using rule 68 (exp1 -> .)
+    EQUALS          reduce using rule 68 (exp1 -> .)
+    OR              reduce using rule 68 (exp1 -> .)
+    AND             reduce using rule 68 (exp1 -> .)
+    CLOSE_PAREN     reduce using rule 68 (exp1 -> .)
+    CLOSE_BRACKET   reduce using rule 68 (exp1 -> .)
+    SEMI_COLON      reduce using rule 68 (exp1 -> .)
+    COMMA           reduce using rule 68 (exp1 -> .)
+    NEGATION        reduce using rule 68 (exp1 -> .)
+    OPEN_PAREN      reduce using rule 68 (exp1 -> .)
+    CINT            reduce using rule 68 (exp1 -> .)
+    CDOUBLE         reduce using rule 68 (exp1 -> .)
+    CSTRING         reduce using rule 68 (exp1 -> .)
+    ID              reduce using rule 68 (exp1 -> .)
+    TRUE            reduce using rule 68 (exp1 -> .)
+    FALSE           reduce using rule 68 (exp1 -> .)
+    CLOSE_BRACE     reduce using rule 68 (exp1 -> .)
+
+    exp1                           shift and go to state 168
+
+state 138
+
+    (93) masconstID -> OPEN_BRACKET expression . CLOSE_BRACKET
+
+    CLOSE_BRACKET   shift and go to state 169
+
+
+state 139
+
+    (73) factor -> OPEN_PAREN expression CLOSE_PAREN .
+
+    TIMES           reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    DIVIDE          reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    PLUS            reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    MINUS           reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    OR              reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    AND             reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    CLOSE_PAREN     reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    CLOSE_BRACKET   reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    SEMI_COLON      reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    COMMA           reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    NEGATION        reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    OPEN_PAREN      reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    CINT            reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    CDOUBLE         reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    CSTRING         reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    ID              reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    TRUE            reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    FALSE           reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    CLOSE_BRACE     reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    GREATER_THAN    reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    LESS_THAN       reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    DIFFERENT       reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    GREAT_EQUAL     reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    LESS_EQUAL      reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    EQUALS          reduce using rule 73 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+
+
+state 140
+
+    (32) expression2 -> DIFFERENT expression1 . exp
+    (65) exp -> . term exp1
+    (69) term -> . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    term                           shift and go to state 70
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    exp                            shift and go to state 170
+    factor                         shift and go to state 80
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 141
+
+    (35) expression2 -> EQUALS expression1 . exp
+    (65) exp -> . term exp1
+    (69) term -> . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    term                           shift and go to state 70
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    exp                            shift and go to state 171
+    factor                         shift and go to state 80
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 142
+
+    (34) expression2 -> LESS_EQUAL expression1 . exp
+    (65) exp -> . term exp1
+    (69) term -> . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    term                           shift and go to state 70
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    exp                            shift and go to state 172
+    factor                         shift and go to state 80
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 143
+
+    (30) expression2 -> GREATER_THAN expression1 . exp
+    (65) exp -> . term exp1
+    (69) term -> . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    term                           shift and go to state 70
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    exp                            shift and go to state 173
+    factor                         shift and go to state 80
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 144
+
+    (31) expression2 -> LESS_THAN expression1 . exp
+    (65) exp -> . term exp1
+    (69) term -> . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    term                           shift and go to state 70
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    exp                            shift and go to state 174
+    factor                         shift and go to state 80
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 145
+
+    (33) expression2 -> GREAT_EQUAL expression1 . exp
+    (65) exp -> . term exp1
+    (69) term -> . factor term1
+    (73) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (74) factor -> . varconst
+    (90) varconst -> . const
+    (91) varconst -> . constID
+    (95) const -> . CINT
+    (96) const -> . CDOUBLE
+    (97) const -> . constbool
+    (98) const -> . CSTRING
+    (92) constID -> . ID masconstID
+    (99) constbool -> . TRUE
+    (100) constbool -> . FALSE
+
+    OPEN_PAREN      shift and go to state 78
+    CINT            shift and go to state 82
+    CDOUBLE         shift and go to state 75
+    CSTRING         shift and go to state 71
+    ID              shift and go to state 77
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 76
+
+    term                           shift and go to state 70
+    const                          shift and go to state 72
+    varconst                       shift and go to state 73
+    exp                            shift and go to state 175
+    factor                         shift and go to state 80
+    constbool                      shift and go to state 81
+    constID                        shift and go to state 83
+
+state 146
+
+    (70) term1 -> TIMES factor . term1
+    (70) term1 -> . TIMES factor term1
+    (71) term1 -> . DIVIDE factor term1
+    (72) term1 -> .
+
+    TIMES           shift and go to state 115
+    DIVIDE          shift and go to state 116
+    PLUS            reduce using rule 72 (term1 -> .)
+    MINUS           reduce using rule 72 (term1 -> .)
+    GREATER_THAN    reduce using rule 72 (term1 -> .)
+    LESS_THAN       reduce using rule 72 (term1 -> .)
+    DIFFERENT       reduce using rule 72 (term1 -> .)
+    GREAT_EQUAL     reduce using rule 72 (term1 -> .)
+    LESS_EQUAL      reduce using rule 72 (term1 -> .)
+    EQUALS          reduce using rule 72 (term1 -> .)
+    OR              reduce using rule 72 (term1 -> .)
+    AND             reduce using rule 72 (term1 -> .)
+    CLOSE_PAREN     reduce using rule 72 (term1 -> .)
+    CLOSE_BRACKET   reduce using rule 72 (term1 -> .)
+    SEMI_COLON      reduce using rule 72 (term1 -> .)
+    COMMA           reduce using rule 72 (term1 -> .)
+    NEGATION        reduce using rule 72 (term1 -> .)
+    OPEN_PAREN      reduce using rule 72 (term1 -> .)
+    CINT            reduce using rule 72 (term1 -> .)
+    CDOUBLE         reduce using rule 72 (term1 -> .)
+    CSTRING         reduce using rule 72 (term1 -> .)
+    ID              reduce using rule 72 (term1 -> .)
+    TRUE            reduce using rule 72 (term1 -> .)
+    FALSE           reduce using rule 72 (term1 -> .)
+    CLOSE_BRACE     reduce using rule 72 (term1 -> .)
+
+    term1                          shift and go to state 176
+
+state 147
+
+    (71) term1 -> DIVIDE factor . term1
+    (70) term1 -> . TIMES factor term1
+    (71) term1 -> . DIVIDE factor term1
+    (72) term1 -> .
+
+    TIMES           shift and go to state 115
+    DIVIDE          shift and go to state 116
+    PLUS            reduce using rule 72 (term1 -> .)
+    MINUS           reduce using rule 72 (term1 -> .)
+    GREATER_THAN    reduce using rule 72 (term1 -> .)
+    LESS_THAN       reduce using rule 72 (term1 -> .)
+    DIFFERENT       reduce using rule 72 (term1 -> .)
+    GREAT_EQUAL     reduce using rule 72 (term1 -> .)
+    LESS_EQUAL      reduce using rule 72 (term1 -> .)
+    EQUALS          reduce using rule 72 (term1 -> .)
+    OR              reduce using rule 72 (term1 -> .)
+    AND             reduce using rule 72 (term1 -> .)
+    CLOSE_PAREN     reduce using rule 72 (term1 -> .)
+    CLOSE_BRACKET   reduce using rule 72 (term1 -> .)
+    SEMI_COLON      reduce using rule 72 (term1 -> .)
+    COMMA           reduce using rule 72 (term1 -> .)
+    NEGATION        reduce using rule 72 (term1 -> .)
+    OPEN_PAREN      reduce using rule 72 (term1 -> .)
+    CINT            reduce using rule 72 (term1 -> .)
+    CDOUBLE         reduce using rule 72 (term1 -> .)
+    CSTRING         reduce using rule 72 (term1 -> .)
+    ID              reduce using rule 72 (term1 -> .)
+    TRUE            reduce using rule 72 (term1 -> .)
+    FALSE           reduce using rule 72 (term1 -> .)
+    CLOSE_BRACE     reduce using rule 72 (term1 -> .)
+
+    term1                          shift and go to state 177
+
+state 148
+
+    (22) eee -> OR ee eee .
+
+    CLOSE_PAREN     reduce using rule 22 (eee -> OR ee eee .)
+    SEMI_COLON      reduce using rule 22 (eee -> OR ee eee .)
+
+
+state 149
+
+    (23) eee -> AND ee eee .
+
+    CLOSE_PAREN     reduce using rule 23 (eee -> AND ee eee .)
+    SEMI_COLON      reduce using rule 23 (eee -> AND ee eee .)
+
+
+state 150
+
+    (10) block -> OPEN_BRACE module . masModule CLOSE_BRACE
+    (11) masModule -> . module masModule
+    (12) masModule -> .
+    (18) module -> . statement
+    (19) module -> . variable
+    (20) module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    CLOSE_BRACE     reduce using rule 12 (masModule -> .)
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    whilee                         shift and go to state 18
+    type                           shift and go to state 14
+    f_call                         shift and go to state 152
+    module                         shift and go to state 178
+    loop                           shift and go to state 28
+    statement                      shift and go to state 151
+    variable                       shift and go to state 153
+    forr                           shift and go to state 21
+    asssign                        shift and go to state 29
+    masModule                      shift and go to state 179
+    condition                      shift and go to state 23
+    readd                          shift and go to state 5
+
+state 151
+
+    (18) module -> statement .
+
+    ID              reduce using rule 18 (module -> statement .)
+    PRINT           reduce using rule 18 (module -> statement .)
+    READ            reduce using rule 18 (module -> statement .)
+    IF              reduce using rule 18 (module -> statement .)
+    VOID            reduce using rule 18 (module -> statement .)
+    BOOLEAN         reduce using rule 18 (module -> statement .)
+    INT             reduce using rule 18 (module -> statement .)
+    DOUBLE          reduce using rule 18 (module -> statement .)
+    STRING          reduce using rule 18 (module -> statement .)
+    FOR             reduce using rule 18 (module -> statement .)
+    WHILE           reduce using rule 18 (module -> statement .)
+    CLOSE_BRACE     reduce using rule 18 (module -> statement .)
+
+
+state 152
+
+    (20) module -> f_call .
+
+    ID              reduce using rule 20 (module -> f_call .)
+    PRINT           reduce using rule 20 (module -> f_call .)
+    READ            reduce using rule 20 (module -> f_call .)
+    IF              reduce using rule 20 (module -> f_call .)
+    VOID            reduce using rule 20 (module -> f_call .)
+    BOOLEAN         reduce using rule 20 (module -> f_call .)
+    INT             reduce using rule 20 (module -> f_call .)
+    DOUBLE          reduce using rule 20 (module -> f_call .)
+    STRING          reduce using rule 20 (module -> f_call .)
+    FOR             reduce using rule 20 (module -> f_call .)
+    WHILE           reduce using rule 20 (module -> f_call .)
+    CLOSE_BRACE     reduce using rule 20 (module -> f_call .)
+
+
+state 153
+
+    (19) module -> variable .
+
+    ID              reduce using rule 19 (module -> variable .)
+    PRINT           reduce using rule 19 (module -> variable .)
+    READ            reduce using rule 19 (module -> variable .)
+    IF              reduce using rule 19 (module -> variable .)
+    VOID            reduce using rule 19 (module -> variable .)
+    BOOLEAN         reduce using rule 19 (module -> variable .)
+    INT             reduce using rule 19 (module -> variable .)
+    DOUBLE          reduce using rule 19 (module -> variable .)
+    STRING          reduce using rule 19 (module -> variable .)
+    FOR             reduce using rule 19 (module -> variable .)
+    WHILE           reduce using rule 19 (module -> variable .)
+    CLOSE_BRACE     reduce using rule 19 (module -> variable .)
+
+
+state 154
+
+    (62) forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON . expression SEMI_COLON ID expression CLOSE_PAREN block
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 180
+
+state 155
+
+    (1) program -> BEGIN ID OPEN_BRACE full_module masFullModules MAIN full_block CLOSE_BRACE END .
+
+    $end            reduce using rule 1 (program -> BEGIN ID OPEN_BRACE full_module masFullModules MAIN full_block CLOSE_BRACE END .)
+
+
+state 156
+
+    (38) masFullBlock -> full_module . masFullBlock
+    (38) masFullBlock -> . full_module masFullBlock
+    (39) masFullBlock -> .
+    (40) full_module -> . statement
+    (41) full_module -> . variable
+    (42) full_module -> . functionn
+    (43) full_module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (83) functionn -> . FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    CLOSE_BRACE     reduce using rule 39 (masFullBlock -> .)
+    FUNCTION        shift and go to state 16
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    readd                          shift and go to state 5
+    full_module                    shift and go to state 156
+    statement                      shift and go to state 13
+    type                           shift and go to state 14
+    functionn                      shift and go to state 15
+    whilee                         shift and go to state 18
+    f_call                         shift and go to state 19
+    variable                       shift and go to state 20
+    forr                           shift and go to state 21
+    condition                      shift and go to state 23
+    masFullBlock                   shift and go to state 181
+    loop                           shift and go to state 28
+    asssign                        shift and go to state 29
+
+state 157
+
+    (37) full_block -> OPEN_BRACE full_module masFullBlock . CLOSE_BRACE
+
+    CLOSE_BRACE     shift and go to state 182
+
+
+state 158
+
+    (83) functionn -> FUNCTION type ID OPEN_PAREN params func1 . CLOSE_PAREN f_block
+
+    CLOSE_PAREN     shift and go to state 183
+
+
+state 159
+
+    (84) func1 -> COMMA . params func1
+    (86) params -> . type para1 ID
+    (87) params -> .
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+
+    COMMA           reduce using rule 87 (params -> .)
+    CLOSE_PAREN     reduce using rule 87 (params -> .)
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+
+    type                           shift and go to state 129
+    params                         shift and go to state 184
+
+state 160
+
+    (86) params -> type para1 . ID
+
+    ID              shift and go to state 185
+
+
+state 161
+
+    (88) para1 -> OPEN_BRACKET . CLOSE_BRACKET
+
+    CLOSE_BRACKET   shift and go to state 186
+
+
+state 162
+
+    (6) asssign2 -> CLOSE_BRACKET ASSIGN OPEN_BRACE adata . CLOSE_BRACE
+
+    CLOSE_BRACE     shift and go to state 187
+
+
+state 163
+
+    (5) asssign2 -> expression CLOSE_BRACKET ASSIGN expression .
+
+    SEMI_COLON      reduce using rule 5 (asssign2 -> expression CLOSE_BRACKET ASSIGN expression .)
+
+
+state 164
+
+    (14) conditionaux -> ELSE . block
+    (10) block -> . OPEN_BRACE module masModule CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 122
+
+    block                          shift and go to state 188
+
+state 165
+
+    (13) condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .
+
+    FUNCTION        reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    ID              reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    PRINT           reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    READ            reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    IF              reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    VOID            reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    BOOLEAN         reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    INT             reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    DOUBLE          reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    STRING          reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    FOR             reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    WHILE           reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    MAIN            reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    RETURN          reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+    CLOSE_BRACE     reduce using rule 13 (condition -> IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux .)
+
+
+state 166
+
+    (16) readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .
+
+    FUNCTION        reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    ID              reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    PRINT           reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    READ            reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    IF              reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    VOID            reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    BOOLEAN         reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    INT             reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    DOUBLE          reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    STRING          reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    FOR             reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    WHILE           reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    CLOSE_BRACE     reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    RETURN          reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+    MAIN            reduce using rule 16 (readd -> READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON .)
+
+
+state 167
+
+    (66) exp1 -> PLUS term exp1 .
+
+    GREATER_THAN    reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    LESS_THAN       reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    DIFFERENT       reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    GREAT_EQUAL     reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    LESS_EQUAL      reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    EQUALS          reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    OR              reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    AND             reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    CLOSE_PAREN     reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    CLOSE_BRACKET   reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    SEMI_COLON      reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    COMMA           reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    NEGATION        reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    OPEN_PAREN      reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    CINT            reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    CDOUBLE         reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    CSTRING         reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    ID              reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    TRUE            reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    FALSE           reduce using rule 66 (exp1 -> PLUS term exp1 .)
+    CLOSE_BRACE     reduce using rule 66 (exp1 -> PLUS term exp1 .)
+
+
+state 168
+
+    (67) exp1 -> MINUS term exp1 .
+
+    GREATER_THAN    reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    LESS_THAN       reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    DIFFERENT       reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    GREAT_EQUAL     reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    LESS_EQUAL      reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    EQUALS          reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    OR              reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    AND             reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    CLOSE_PAREN     reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    CLOSE_BRACKET   reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    SEMI_COLON      reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    COMMA           reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    NEGATION        reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    OPEN_PAREN      reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    CINT            reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    CDOUBLE         reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    CSTRING         reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    ID              reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    TRUE            reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    FALSE           reduce using rule 67 (exp1 -> MINUS term exp1 .)
+    CLOSE_BRACE     reduce using rule 67 (exp1 -> MINUS term exp1 .)
+
+
+state 169
+
+    (93) masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .
+
+    TIMES           reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    DIVIDE          reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    PLUS            reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    MINUS           reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    GREATER_THAN    reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    LESS_THAN       reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    DIFFERENT       reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    GREAT_EQUAL     reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    LESS_EQUAL      reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    EQUALS          reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    OR              reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    AND             reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    CLOSE_PAREN     reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    CLOSE_BRACKET   reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    SEMI_COLON      reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    COMMA           reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    NEGATION        reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    OPEN_PAREN      reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    CINT            reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    CDOUBLE         reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    CSTRING         reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    ID              reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    TRUE            reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    FALSE           reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+    CLOSE_BRACE     reduce using rule 93 (masconstID -> OPEN_BRACKET expression CLOSE_BRACKET .)
+
+
+state 170
+
+    (32) expression2 -> DIFFERENT expression1 exp .
+
+    OR              reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    AND             reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    CLOSE_PAREN     reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    CLOSE_BRACKET   reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    SEMI_COLON      reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    COMMA           reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    NEGATION        reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    OPEN_PAREN      reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    CINT            reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    CDOUBLE         reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    CSTRING         reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    ID              reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    TRUE            reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    FALSE           reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+    CLOSE_BRACE     reduce using rule 32 (expression2 -> DIFFERENT expression1 exp .)
+
+
+state 171
+
+    (35) expression2 -> EQUALS expression1 exp .
+
+    OR              reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    AND             reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    CLOSE_PAREN     reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    CLOSE_BRACKET   reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    SEMI_COLON      reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    COMMA           reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    NEGATION        reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    OPEN_PAREN      reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    CINT            reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    CDOUBLE         reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    CSTRING         reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    ID              reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    TRUE            reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    FALSE           reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+    CLOSE_BRACE     reduce using rule 35 (expression2 -> EQUALS expression1 exp .)
+
+
+state 172
+
+    (34) expression2 -> LESS_EQUAL expression1 exp .
+
+    OR              reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    AND             reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    CLOSE_PAREN     reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    CLOSE_BRACKET   reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    SEMI_COLON      reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    COMMA           reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    NEGATION        reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    OPEN_PAREN      reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    CINT            reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    CDOUBLE         reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    CSTRING         reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    ID              reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    TRUE            reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    FALSE           reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+    CLOSE_BRACE     reduce using rule 34 (expression2 -> LESS_EQUAL expression1 exp .)
+
+
+state 173
+
+    (30) expression2 -> GREATER_THAN expression1 exp .
+
+    OR              reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    AND             reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    CLOSE_PAREN     reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    CLOSE_BRACKET   reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    SEMI_COLON      reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    COMMA           reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    NEGATION        reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    OPEN_PAREN      reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    CINT            reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    CDOUBLE         reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    CSTRING         reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    ID              reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    TRUE            reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    FALSE           reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+    CLOSE_BRACE     reduce using rule 30 (expression2 -> GREATER_THAN expression1 exp .)
+
+
+state 174
+
+    (31) expression2 -> LESS_THAN expression1 exp .
+
+    OR              reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    AND             reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    CLOSE_PAREN     reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    CLOSE_BRACKET   reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    SEMI_COLON      reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    COMMA           reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    NEGATION        reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    OPEN_PAREN      reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    CINT            reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    CDOUBLE         reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    CSTRING         reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    ID              reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    TRUE            reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    FALSE           reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+    CLOSE_BRACE     reduce using rule 31 (expression2 -> LESS_THAN expression1 exp .)
+
+
+state 175
+
+    (33) expression2 -> GREAT_EQUAL expression1 exp .
+
+    OR              reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    AND             reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    CLOSE_PAREN     reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    CLOSE_BRACKET   reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    SEMI_COLON      reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    COMMA           reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    NEGATION        reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    OPEN_PAREN      reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    CINT            reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    CDOUBLE         reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    CSTRING         reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    ID              reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    TRUE            reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    FALSE           reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+    CLOSE_BRACE     reduce using rule 33 (expression2 -> GREAT_EQUAL expression1 exp .)
+
+
+state 176
+
+    (70) term1 -> TIMES factor term1 .
+
+    PLUS            reduce using rule 70 (term1 -> TIMES factor term1 .)
+    MINUS           reduce using rule 70 (term1 -> TIMES factor term1 .)
+    GREATER_THAN    reduce using rule 70 (term1 -> TIMES factor term1 .)
+    LESS_THAN       reduce using rule 70 (term1 -> TIMES factor term1 .)
+    DIFFERENT       reduce using rule 70 (term1 -> TIMES factor term1 .)
+    GREAT_EQUAL     reduce using rule 70 (term1 -> TIMES factor term1 .)
+    LESS_EQUAL      reduce using rule 70 (term1 -> TIMES factor term1 .)
+    EQUALS          reduce using rule 70 (term1 -> TIMES factor term1 .)
+    OR              reduce using rule 70 (term1 -> TIMES factor term1 .)
+    AND             reduce using rule 70 (term1 -> TIMES factor term1 .)
+    CLOSE_PAREN     reduce using rule 70 (term1 -> TIMES factor term1 .)
+    CLOSE_BRACKET   reduce using rule 70 (term1 -> TIMES factor term1 .)
+    SEMI_COLON      reduce using rule 70 (term1 -> TIMES factor term1 .)
+    COMMA           reduce using rule 70 (term1 -> TIMES factor term1 .)
+    NEGATION        reduce using rule 70 (term1 -> TIMES factor term1 .)
+    OPEN_PAREN      reduce using rule 70 (term1 -> TIMES factor term1 .)
+    CINT            reduce using rule 70 (term1 -> TIMES factor term1 .)
+    CDOUBLE         reduce using rule 70 (term1 -> TIMES factor term1 .)
+    CSTRING         reduce using rule 70 (term1 -> TIMES factor term1 .)
+    ID              reduce using rule 70 (term1 -> TIMES factor term1 .)
+    TRUE            reduce using rule 70 (term1 -> TIMES factor term1 .)
+    FALSE           reduce using rule 70 (term1 -> TIMES factor term1 .)
+    CLOSE_BRACE     reduce using rule 70 (term1 -> TIMES factor term1 .)
+
+
+state 177
+
+    (71) term1 -> DIVIDE factor term1 .
+
+    PLUS            reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    MINUS           reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    GREATER_THAN    reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    LESS_THAN       reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    DIFFERENT       reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    GREAT_EQUAL     reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    LESS_EQUAL      reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    EQUALS          reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    OR              reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    AND             reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    CLOSE_PAREN     reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    CLOSE_BRACKET   reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    SEMI_COLON      reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    COMMA           reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    NEGATION        reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    OPEN_PAREN      reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    CINT            reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    CDOUBLE         reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    CSTRING         reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    ID              reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    TRUE            reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    FALSE           reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+    CLOSE_BRACE     reduce using rule 71 (term1 -> DIVIDE factor term1 .)
+
+
+state 178
+
+    (11) masModule -> module . masModule
+    (11) masModule -> . module masModule
+    (12) masModule -> .
+    (18) module -> . statement
+    (19) module -> . variable
+    (20) module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    CLOSE_BRACE     reduce using rule 12 (masModule -> .)
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    whilee                         shift and go to state 18
+    type                           shift and go to state 14
+    f_call                         shift and go to state 152
+    module                         shift and go to state 178
+    loop                           shift and go to state 28
+    statement                      shift and go to state 151
+    variable                       shift and go to state 153
+    forr                           shift and go to state 21
+    asssign                        shift and go to state 29
+    masModule                      shift and go to state 189
+    condition                      shift and go to state 23
+    readd                          shift and go to state 5
+
+state 179
+
+    (10) block -> OPEN_BRACE module masModule . CLOSE_BRACE
+
+    CLOSE_BRACE     shift and go to state 190
+
+
+state 180
+
+    (62) forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression . SEMI_COLON ID expression CLOSE_PAREN block
+
+    SEMI_COLON      shift and go to state 191
+
+
+state 181
+
+    (38) masFullBlock -> full_module masFullBlock .
+
+    CLOSE_BRACE     reduce using rule 38 (masFullBlock -> full_module masFullBlock .)
+
+
+state 182
+
+    (37) full_block -> OPEN_BRACE full_module masFullBlock CLOSE_BRACE .
+
+    CLOSE_BRACE     reduce using rule 37 (full_block -> OPEN_BRACE full_module masFullBlock CLOSE_BRACE .)
+
+
+state 183
+
+    (83) functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN . f_block
+    (80) f_block -> . OPEN_BRACE f_module masFModule CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 192
+
+    f_block                        shift and go to state 193
+
+state 184
+
+    (84) func1 -> COMMA params . func1
+    (84) func1 -> . COMMA params func1
+    (85) func1 -> .
+
+    COMMA           shift and go to state 159
+    CLOSE_PAREN     reduce using rule 85 (func1 -> .)
+
+    func1                          shift and go to state 194
+
+state 185
+
+    (86) params -> type para1 ID .
+
+    COMMA           reduce using rule 86 (params -> type para1 ID .)
+    CLOSE_PAREN     reduce using rule 86 (params -> type para1 ID .)
+
+
+state 186
+
+    (88) para1 -> OPEN_BRACKET CLOSE_BRACKET .
+
+    ID              reduce using rule 88 (para1 -> OPEN_BRACKET CLOSE_BRACKET .)
+
+
+state 187
+
+    (6) asssign2 -> CLOSE_BRACKET ASSIGN OPEN_BRACE adata CLOSE_BRACE .
+
+    SEMI_COLON      reduce using rule 6 (asssign2 -> CLOSE_BRACKET ASSIGN OPEN_BRACE adata CLOSE_BRACE .)
+
+
+state 188
+
+    (14) conditionaux -> ELSE block .
+
+    FUNCTION        reduce using rule 14 (conditionaux -> ELSE block .)
+    ID              reduce using rule 14 (conditionaux -> ELSE block .)
+    PRINT           reduce using rule 14 (conditionaux -> ELSE block .)
+    READ            reduce using rule 14 (conditionaux -> ELSE block .)
+    IF              reduce using rule 14 (conditionaux -> ELSE block .)
+    VOID            reduce using rule 14 (conditionaux -> ELSE block .)
+    BOOLEAN         reduce using rule 14 (conditionaux -> ELSE block .)
+    INT             reduce using rule 14 (conditionaux -> ELSE block .)
+    DOUBLE          reduce using rule 14 (conditionaux -> ELSE block .)
+    STRING          reduce using rule 14 (conditionaux -> ELSE block .)
+    FOR             reduce using rule 14 (conditionaux -> ELSE block .)
+    WHILE           reduce using rule 14 (conditionaux -> ELSE block .)
+    MAIN            reduce using rule 14 (conditionaux -> ELSE block .)
+    CLOSE_BRACE     reduce using rule 14 (conditionaux -> ELSE block .)
+    RETURN          reduce using rule 14 (conditionaux -> ELSE block .)
+
+
+state 189
+
+    (11) masModule -> module masModule .
+
+    CLOSE_BRACE     reduce using rule 11 (masModule -> module masModule .)
+
+
+state 190
+
+    (10) block -> OPEN_BRACE module masModule CLOSE_BRACE .
+
+    ELSE            reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    FUNCTION        reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    ID              reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    PRINT           reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    READ            reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    IF              reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    VOID            reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    BOOLEAN         reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    INT             reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    DOUBLE          reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    STRING          reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    FOR             reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    WHILE           reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    MAIN            reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    CLOSE_BRACE     reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+    RETURN          reduce using rule 10 (block -> OPEN_BRACE module masModule CLOSE_BRACE .)
+
+
+state 191
+
+    (62) forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON . ID expression CLOSE_PAREN block
+
+    ID              shift and go to state 195
+
+
+state 192
+
+    (80) f_block -> OPEN_BRACE . f_module masFModule CLOSE_BRACE
+    (76) f_module -> . statement
+    (77) f_module -> . variable
+    (78) f_module -> . returnn
+    (79) f_module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (101) returnn -> . RETURN exp_expression SEMI_COLON
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    RETURN          shift and go to state 196
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    f_module                       shift and go to state 197
+    readd                          shift and go to state 5
+    returnn                        shift and go to state 198
+    statement                      shift and go to state 199
+    type                           shift and go to state 14
+    whilee                         shift and go to state 18
+    f_call                         shift and go to state 200
+    variable                       shift and go to state 201
+    forr                           shift and go to state 21
+    condition                      shift and go to state 23
+    loop                           shift and go to state 28
+    asssign                        shift and go to state 29
+
+state 193
+
+    (83) functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .
+
+    FUNCTION        reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    ID              reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    PRINT           reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    READ            reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    IF              reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    VOID            reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    BOOLEAN         reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    INT             reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    DOUBLE          reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    STRING          reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    FOR             reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    WHILE           reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    MAIN            reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+    CLOSE_BRACE     reduce using rule 83 (functionn -> FUNCTION type ID OPEN_PAREN params func1 CLOSE_PAREN f_block .)
+
+
+state 194
+
+    (84) func1 -> COMMA params func1 .
+
+    CLOSE_PAREN     reduce using rule 84 (func1 -> COMMA params func1 .)
+
+
+state 195
+
+    (62) forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID . expression CLOSE_PAREN block
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    expression                     shift and go to state 202
+
+state 196
+
+    (101) returnn -> RETURN . exp_expression SEMI_COLON
+    (21) exp_expression -> . expression eee
+    (27) expression -> . expression1 exp expression2
+    (28) expression1 -> . NEGATION
+    (29) expression1 -> .
+
+    NEGATION        shift and go to state 48
+    OPEN_PAREN      reduce using rule 29 (expression1 -> .)
+    CINT            reduce using rule 29 (expression1 -> .)
+    CDOUBLE         reduce using rule 29 (expression1 -> .)
+    CSTRING         reduce using rule 29 (expression1 -> .)
+    ID              reduce using rule 29 (expression1 -> .)
+    TRUE            reduce using rule 29 (expression1 -> .)
+    FALSE           reduce using rule 29 (expression1 -> .)
+
+    expression1                    shift and go to state 47
+    exp_expression                 shift and go to state 203
+    expression                     shift and go to state 50
+
+state 197
+
+    (80) f_block -> OPEN_BRACE f_module . masFModule CLOSE_BRACE
+    (81) masFModule -> . f_module masFModule
+    (82) masFModule -> .
+    (76) f_module -> . statement
+    (77) f_module -> . variable
+    (78) f_module -> . returnn
+    (79) f_module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (101) returnn -> . RETURN exp_expression SEMI_COLON
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    CLOSE_BRACE     reduce using rule 82 (masFModule -> .)
+    RETURN          shift and go to state 196
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    f_module                       shift and go to state 204
+    readd                          shift and go to state 5
+    returnn                        shift and go to state 198
+    statement                      shift and go to state 199
+    type                           shift and go to state 14
+    whilee                         shift and go to state 18
+    f_call                         shift and go to state 200
+    masFModule                     shift and go to state 205
+    variable                       shift and go to state 201
+    forr                           shift and go to state 21
+    condition                      shift and go to state 23
+    loop                           shift and go to state 28
+    asssign                        shift and go to state 29
+
+state 198
+
+    (78) f_module -> returnn .
+
+    RETURN          reduce using rule 78 (f_module -> returnn .)
+    ID              reduce using rule 78 (f_module -> returnn .)
+    PRINT           reduce using rule 78 (f_module -> returnn .)
+    READ            reduce using rule 78 (f_module -> returnn .)
+    IF              reduce using rule 78 (f_module -> returnn .)
+    VOID            reduce using rule 78 (f_module -> returnn .)
+    BOOLEAN         reduce using rule 78 (f_module -> returnn .)
+    INT             reduce using rule 78 (f_module -> returnn .)
+    DOUBLE          reduce using rule 78 (f_module -> returnn .)
+    STRING          reduce using rule 78 (f_module -> returnn .)
+    FOR             reduce using rule 78 (f_module -> returnn .)
+    WHILE           reduce using rule 78 (f_module -> returnn .)
+    CLOSE_BRACE     reduce using rule 78 (f_module -> returnn .)
+
+
+state 199
+
+    (76) f_module -> statement .
+
+    RETURN          reduce using rule 76 (f_module -> statement .)
+    ID              reduce using rule 76 (f_module -> statement .)
+    PRINT           reduce using rule 76 (f_module -> statement .)
+    READ            reduce using rule 76 (f_module -> statement .)
+    IF              reduce using rule 76 (f_module -> statement .)
+    VOID            reduce using rule 76 (f_module -> statement .)
+    BOOLEAN         reduce using rule 76 (f_module -> statement .)
+    INT             reduce using rule 76 (f_module -> statement .)
+    DOUBLE          reduce using rule 76 (f_module -> statement .)
+    STRING          reduce using rule 76 (f_module -> statement .)
+    FOR             reduce using rule 76 (f_module -> statement .)
+    WHILE           reduce using rule 76 (f_module -> statement .)
+    CLOSE_BRACE     reduce using rule 76 (f_module -> statement .)
+
+
+state 200
+
+    (79) f_module -> f_call .
+
+    RETURN          reduce using rule 79 (f_module -> f_call .)
+    ID              reduce using rule 79 (f_module -> f_call .)
+    PRINT           reduce using rule 79 (f_module -> f_call .)
+    READ            reduce using rule 79 (f_module -> f_call .)
+    IF              reduce using rule 79 (f_module -> f_call .)
+    VOID            reduce using rule 79 (f_module -> f_call .)
+    BOOLEAN         reduce using rule 79 (f_module -> f_call .)
+    INT             reduce using rule 79 (f_module -> f_call .)
+    DOUBLE          reduce using rule 79 (f_module -> f_call .)
+    STRING          reduce using rule 79 (f_module -> f_call .)
+    FOR             reduce using rule 79 (f_module -> f_call .)
+    WHILE           reduce using rule 79 (f_module -> f_call .)
+    CLOSE_BRACE     reduce using rule 79 (f_module -> f_call .)
+
+
+state 201
+
+    (77) f_module -> variable .
+
+    RETURN          reduce using rule 77 (f_module -> variable .)
+    ID              reduce using rule 77 (f_module -> variable .)
+    PRINT           reduce using rule 77 (f_module -> variable .)
+    READ            reduce using rule 77 (f_module -> variable .)
+    IF              reduce using rule 77 (f_module -> variable .)
+    VOID            reduce using rule 77 (f_module -> variable .)
+    BOOLEAN         reduce using rule 77 (f_module -> variable .)
+    INT             reduce using rule 77 (f_module -> variable .)
+    DOUBLE          reduce using rule 77 (f_module -> variable .)
+    STRING          reduce using rule 77 (f_module -> variable .)
+    FOR             reduce using rule 77 (f_module -> variable .)
+    WHILE           reduce using rule 77 (f_module -> variable .)
+    CLOSE_BRACE     reduce using rule 77 (f_module -> variable .)
+
+
+state 202
+
+    (62) forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression . CLOSE_PAREN block
+
+    CLOSE_PAREN     shift and go to state 206
+
+
+state 203
+
+    (101) returnn -> RETURN exp_expression . SEMI_COLON
+
+    SEMI_COLON      shift and go to state 207
+
+
+state 204
+
+    (81) masFModule -> f_module . masFModule
+    (81) masFModule -> . f_module masFModule
+    (82) masFModule -> .
+    (76) f_module -> . statement
+    (77) f_module -> . variable
+    (78) f_module -> . returnn
+    (79) f_module -> . f_call
+    (46) statement -> . printt
+    (47) statement -> . readd
+    (48) statement -> . condition
+    (49) statement -> . asssign
+    (50) statement -> . loop
+    (56) variable -> . type var1 SEMI_COLON
+    (101) returnn -> . RETURN exp_expression SEMI_COLON
+    (102) f_call -> . ID OPEN_PAREN adata CLOSE_PAREN SEMI_COLON
+    (17) printt -> . PRINT OPEN_PAREN exp_expression CLOSE_PAREN SEMI_COLON
+    (16) readd -> . READ OPEN_PAREN ID COMMA expression CLOSE_PAREN SEMI_COLON
+    (13) condition -> . IF OPEN_PAREN exp_expression CLOSE_PAREN block conditionaux
+    (2) asssign -> . ID asssign1 SEMI_COLON
+    (63) loop -> . forr
+    (64) loop -> . whilee
+    (51) type -> . VOID
+    (52) type -> . BOOLEAN
+    (53) type -> . INT
+    (54) type -> . DOUBLE
+    (55) type -> . STRING
+    (62) forr -> . FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block
+    (75) whilee -> . WHILE OPEN_PAREN exp_expression CLOSE_PAREN block
+
+    CLOSE_BRACE     reduce using rule 82 (masFModule -> .)
+    RETURN          shift and go to state 196
+    ID              shift and go to state 22
+    PRINT           shift and go to state 8
+    READ            shift and go to state 6
+    IF              shift and go to state 24
+    VOID            shift and go to state 7
+    BOOLEAN         shift and go to state 27
+    INT             shift and go to state 25
+    DOUBLE          shift and go to state 26
+    STRING          shift and go to state 17
+    FOR             shift and go to state 11
+    WHILE           shift and go to state 9
+
+    printt                         shift and go to state 10
+    f_module                       shift and go to state 204
+    readd                          shift and go to state 5
+    returnn                        shift and go to state 198
+    statement                      shift and go to state 199
+    type                           shift and go to state 14
+    whilee                         shift and go to state 18
+    f_call                         shift and go to state 200
+    masFModule                     shift and go to state 208
+    variable                       shift and go to state 201
+    forr                           shift and go to state 21
+    condition                      shift and go to state 23
+    loop                           shift and go to state 28
+    asssign                        shift and go to state 29
+
+state 205
+
+    (80) f_block -> OPEN_BRACE f_module masFModule . CLOSE_BRACE
+
+    CLOSE_BRACE     shift and go to state 209
+
+
+state 206
+
+    (62) forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN . block
+    (10) block -> . OPEN_BRACE module masModule CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 122
+
+    block                          shift and go to state 210
+
+state 207
+
+    (101) returnn -> RETURN exp_expression SEMI_COLON .
+
+    RETURN          reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    ID              reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    PRINT           reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    READ            reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    IF              reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    VOID            reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    BOOLEAN         reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    INT             reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    DOUBLE          reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    STRING          reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    FOR             reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    WHILE           reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+    CLOSE_BRACE     reduce using rule 101 (returnn -> RETURN exp_expression SEMI_COLON .)
+
+
+state 208
+
+    (81) masFModule -> f_module masFModule .
+
+    CLOSE_BRACE     reduce using rule 81 (masFModule -> f_module masFModule .)
+
+
+state 209
+
+    (80) f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .
+
+    FUNCTION        reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    ID              reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    PRINT           reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    READ            reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    IF              reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    VOID            reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    BOOLEAN         reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    INT             reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    DOUBLE          reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    STRING          reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    FOR             reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    WHILE           reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    MAIN            reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+    CLOSE_BRACE     reduce using rule 80 (f_block -> OPEN_BRACE f_module masFModule CLOSE_BRACE .)
+
+
+state 210
+
+    (62) forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .
+
+    ID              reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    PRINT           reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    READ            reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    IF              reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    VOID            reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    BOOLEAN         reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    INT             reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    DOUBLE          reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    STRING          reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    FOR             reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    WHILE           reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    CLOSE_BRACE     reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    FUNCTION        reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    MAIN            reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+    RETURN          reduce using rule 62 (forr -> FOR OPEN_PAREN ID ASSIGN const SEMI_COLON expression SEMI_COLON ID expression CLOSE_PAREN block .)
+

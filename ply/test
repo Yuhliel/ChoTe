@@ -1,0 +1,137 @@
+begin test {
+	
+	int var1; 
+	int var2;
+	int a,b,c;
+	double x;
+	String hola;
+	uno();
+	dos(x,y,z);
+	x=5;
+	int[5] t;
+	y[]={1};
+	z[]={};
+	w[]={1,2,3,4,5};
+	w[1]= 4;
+	hola = "HELLOW";
+		if( x == y && z<u || y == false)
+		{
+		x = x + 1;
+		int var1; 
+		int var2;
+		int a,b,c;
+		double x;
+		String hola;
+		uno();
+		dos(x,y,z);
+		x=5;
+		int[5] t;
+		y[]={1};
+		z[]={};
+		w[]={1,2,3,4,5};
+		w[1]= 4;
+	hola = "HELLOW";
+		}
+		
+	while ( x >= 1) {
+	 x = x + 1;	
+	int var1; 
+	int var2;
+	int a,b,c;
+	double x;
+	String hola;
+	uno();
+	dos(x,y,z);
+	x=5;
+	int[5] t;
+	y[]={1};
+	z[]={};
+	w[]={1,2,3,4,5};
+	w[1]= 4;
+	hola = "HELLOW";
+	}
+	
+	function void uno(){
+	x = y + 1;
+	y = z[1];
+	uno();
+	dos(x,y,z);
+	int var1; 
+	int var2;
+	int a,b,c;
+	double x;
+	String hola;
+	uno();
+	dos(x,y,z);
+	x=5;
+	int[5] t;
+	y[]={1};
+	z[]={};
+	w[]={1,2,3,4,5};
+	w[1]= 4;
+	hola = "HELLOW";
+	return x>=y;
+	}
+	
+	function int dos(double i, int k, String k){
+	y = 10;
+	z[] = {1,2,3,4,5};
+	w[1]= 4;
+	hola = "HELLOW";
+		if( x == y )
+	{
+	x = x + 1;
+	w[1]= 4;
+	hola = "HELLOW";
+	}else{
+
+	 x = 1;
+	 w[1]= 4;
+	hola = "HELLOW";
+	}
+	
+	while ( x >= 1) {
+	 x = x + 1;	
+	}
+
+	}
+	
+	
+	
+ main{
+	int x;
+	int y;
+	y = 0;
+	uno();
+	dos(x,y,z);
+	y[0]=x;
+	y[0]=1;
+	z[]={};
+	w[]={1,2,3,4,5};
+	int var1; 
+	int var2;
+	int a,b,c;
+	double x;
+	String hola;
+	uno();
+	dos(x,y,z);
+	x=5;
+	int[5] t;
+	y[]={1};
+	z[]={};
+	w[]={1,2,3,4,5};
+	print( x>=0 );
+			if( x == y )
+	{
+	x = x + 1;
+	}else{
+	 x = 1;
+	}
+	
+	while ( x >= 1) {
+	 x = x + 1;	
+	}
+ }
+ 	
+ 
+}end
